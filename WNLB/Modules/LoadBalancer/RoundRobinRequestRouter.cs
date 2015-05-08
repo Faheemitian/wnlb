@@ -48,22 +48,9 @@ namespace WNLB.Modules.LoadBalancer
             }
 
             var stream = forwardedResponse.Content.ReadAsStreamAsync().Result;
-            int offset = 0;
-
-            using (var reader = new StreamReader(stream))
-            {
-                while (!reader.EndOfStream)
-                {
-                    const int blockSize = 2000;
-                    char[] buffer = new char[blockSize];
-                    int readBytes = reader.Read(buffer, 0, blockSize);
-                    response.OutputStream.Write(Encoding.UTF8.GetBytes(buffer), 0, readBytes);
-                    offset = readBytes;
-                }
-            }
+            stream.CopyTo(response.OutputStream);
 
             response.End();
-
             Console.Out.WriteLine("RoundRobinRequestRouter called.");
         }
 
