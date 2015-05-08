@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace WNLB.Modules
+namespace WNLB.Modules.LoadBalancer
 {
     public interface RequestRouter
     {
-        public void RouteRequest(HttpRequest request);
+        IList<AppServer> AppServers { get; }
+        void RouteRequest(HttpContext requestContext);
     }
 }
