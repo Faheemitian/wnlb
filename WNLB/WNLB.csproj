@@ -205,7 +205,15 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Modules\LoadBalancerModule.cs" />
+    <Compile Include="Modules\LoadBalancer\Application.cs" />
+    <Compile Include="Modules\LoadBalancer\ApplicationRegister.cs" />
+    <Compile Include="Modules\LoadBalancer\AppServer.cs" />
+    <Compile Include="Modules\LoadBalancer\BasicAppServer.cs" />
+    <Compile Include="Modules\LoadBalancer\LoadBalancerModule.cs" />
+    <Compile Include="Modules\LoadBalancer\RequestRouter.cs" />
+    <Compile Include="Modules\LoadBalancer\RoundRobinRequestRouter.cs" />
+    <Compile Include="Modules\LoadBalancer\ServerStatus.cs" />
+    <Compile Include="Modules\LoadBalancer\StaticApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />

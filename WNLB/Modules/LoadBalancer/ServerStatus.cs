@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WNLB.Modules
+namespace WNLB.Modules.LoadBalancer
 {
     public enum ServerStatus
     {
