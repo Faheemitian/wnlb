@@ -32,7 +32,7 @@ namespace WNLB.Modules.LoadBalancer
     {
         public int Compare(Application x, Application y)
         {
-            return x.AppPath.Length - y.AppPath.Length;
+            return  y.AppPath.Length - x.AppPath.Length;
         }
     }
 }
