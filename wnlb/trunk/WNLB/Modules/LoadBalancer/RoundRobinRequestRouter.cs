@@ -25,9 +25,12 @@ namespace WNLB.Modules.LoadBalancer
 
         public void RouteRequest(HttpContext requestContext)
         {
-            _appServerIndex = _appServerIndex % _appServers.Count;
-            var server = _appServers[_appServerIndex];
+            var server = GetNextServer(requestContext);
+            ProcessRequest(requestContext, server);
+        }
 
+        private void ProcessRequest(HttpContext requestContext, AppServer server)
+        {
             HttpRequest request = requestContext.Request;
             HttpMethod method = new HttpMethod(request.HttpMethod);
             String uriString = String.Format("{0}://{1}:{2}{3}", request.Url.Scheme, server.Hostname, server.Port, request.Url.PathAndQuery);
@@ -37,21 +40,36 @@ namespace WNLB.Modules.LoadBalancer
             HttpResponseMessage forwardedResponse = _client.SendAsync(forwardRequest, HttpCompletionOption.ResponseHeadersRead).Result;
             HttpResponse response = requestContext.Response;
 
-            foreach (var header in forwardedResponse.Headers) {
+            foreach (var header in forwardedResponse.Headers)
+            {
                 StringBuilder headerValue = new StringBuilder();
                 foreach (var value in header.Value)
                 {
                     headerValue.Append(value).Append(";");
                 }
 
-                requestContext.Response.Headers.Add(header.Key, headerValue.ToString());                
+                response.Headers.Add(header.Key, headerValue.ToString());
             }
 
+            response.Headers.Add("X-Server", server.Name);
             var stream = forwardedResponse.Content.ReadAsStreamAsync().Result;
             stream.CopyTo(response.OutputStream);
 
             response.End();
-            Console.Out.WriteLine("RoundRobinRequestRouter called.");
+        }
+
+        public AppServer GetNextServer(HttpContext requestContext)
+        {
+            if (_appServers.IsNullOrEmpty())
+            {
+                throw new InvalidOperationException("No app servers available");
+            }
+
+            _appServerIndex = _appServerIndex % _appServers.Count;
+            var server = _appServers[_appServerIndex];
+            _appServerIndex++;
+
+            return server;
         }
 
 

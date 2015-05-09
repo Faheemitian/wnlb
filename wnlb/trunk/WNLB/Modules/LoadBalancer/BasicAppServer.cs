@@ -7,12 +7,14 @@ namespace WNLB.Modules.LoadBalancer
 {
     public class BasicAppServer : AppServer
     {
+        private readonly string _name;
         private readonly string _hostname;
         private readonly string _ipAddress;
         private readonly int _port;
 
-        public BasicAppServer(string hostname, string ipAddress, int port)
+        public BasicAppServer(string name, string hostname, string ipAddress, int port)
         {
+            _name = name;
             _hostname = hostname;
             _ipAddress = ipAddress;
             _port = port;
@@ -34,13 +36,18 @@ namespace WNLB.Modules.LoadBalancer
             get { return _hostname; }            
         }
 
+        public string Name
+        {
+            get { return _name; }
+        }
+
         public ServerStatus Status { get; private set; }
         public int Uptime { get; private set;  }
         public Boolean HasHeartbeat { get; private set; }
 
         public override string ToString()
         {
-            return Hostname;
+            return Name;
         }
     }
 }

@@ -14,5 +14,6 @@ namespace WNLB.Modules.LoadBalancer
         ServerStatus Status { get; }
         int Uptime { get; }
         Boolean HasHeartbeat { get; }
+        string Name { get; }
     }
 }

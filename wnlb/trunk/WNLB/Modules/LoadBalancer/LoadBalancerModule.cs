@@ -11,7 +11,11 @@ namespace WNLB.Modules.LoadBalancer
 
         public LoadBalancerModule()
         {
-            var appServers = new List<AppServer> { new BasicAppServer("localhost", "127.0.0.1", 8003) };
+            var appServers = new List<AppServer> { 
+                new BasicAppServer("Srv8003", "localhost", "127.0.0.1", 8003),
+                new BasicAppServer("Srv8002", "localhost", "127.0.0.1", 8002) 
+            };
+
             var requestRouter = new RoundRobinRequestRouter(appServers);
             _appRegister.AddAppliction(new StaticApplication("AlpahSampleApp", "/", requestRouter));
         }
