@@ -1,9 +1,12 @@
-﻿using System;
+﻿using NLBLib.Applications;
+using NLBLib.Routers;
+using NLBLib.Servers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WNLB.Modules.LoadBalancer
+namespace NLBLib
 {
     public class LoadBalancerModule : IHttpModule
     {

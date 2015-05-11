@@ -1,0 +1,24 @@
+﻿Install the Web event database by running the following command from the Visual Studio command prompt:
+aspnet_regsql.exe -E -S <ServerName> -A w
+This command uses the following switches:
+-E. This switch indicates to use Windows authentication to connect to the database.
+-S <ServerName>. This switch indicates the name of the server where the database will be installed, or is already installed.
+-A w. This switch indicates to add Web event support. This creates the relevant tables and stored procedures required by the SqlWebEventProvider.
+Create a SQL Server logon for your Web application's identity. For example, create a network service and then create a database user for this logon in the Aspnetdb database.
+Grant the database user execute permission on the aspnet_WebEvent_LogEvent stored procedure.
+Add the following connection string to your application's Web.config file.
+<connectionStrings> 
+   <add name="MySqlConnection" connectionString=
+  "Data Source=localhost;Initial Catalog=aspnetdb;Integrated Security=SSPI;" 
+   /> 
+</connectionStrings>
+  
+Add the following <providers> configuration within the <healthMonitoring> section in Web.config.
+<providers> 
+  <add connectionStringName="MySqlConnection" 
+     maxEventDetailsLength="1073741823" 
+     buffer="true" 
+     bufferMode="Extra Critical Notification"  
+     name="MySqlWebEventProvider"  
+     type="System.Web.Management.SqlWebEventProvider,System.Web,Version=2.0.0 .0,Culture=neutral,PublicKeyToken=b03f5f7f11d50a3a" /> 
+</providers> 

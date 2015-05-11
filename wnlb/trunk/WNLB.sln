@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WNLB", "WNLB\WNLB.csproj", "{AA2FA284-7F7C-4503-989B-20F959967322}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WNLB.Tests", "WNLB.Tests\WNLB.Tests.csproj", "{9E8EFEA8-24FD-4365-9BE9-A071FD9A6CDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLBLib", "NLBLib\NLBLib.csproj", "{4C540614-3450-490E-BFD5-A92DA0C7DDAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLBLib.Tests", "NLBLib.Tests\NLBLib.Tests.csproj", "{4386A1F8-3B9A-4CDB-9EBB-F39592A9278A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{9E8EFEA8-24FD-4365-9BE9-A071FD9A6CDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E8EFEA8-24FD-4365-9BE9-A071FD9A6CDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E8EFEA8-24FD-4365-9BE9-A071FD9A6CDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C540614-3450-490E-BFD5-A92DA0C7DDAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C540614-3450-490E-BFD5-A92DA0C7DDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C540614-3450-490E-BFD5-A92DA0C7DDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C540614-3450-490E-BFD5-A92DA0C7DDAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4386A1F8-3B9A-4CDB-9EBB-F39592A9278A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4386A1F8-3B9A-4CDB-9EBB-F39592A9278A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4386A1F8-3B9A-4CDB-9EBB-F39592A9278A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4386A1F8-3B9A-4CDB-9EBB-F39592A9278A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

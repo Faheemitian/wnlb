@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WNLB.Modules.LoadBalancer
+namespace NLBLib.Servers
 {
     public interface AppServer
     {
