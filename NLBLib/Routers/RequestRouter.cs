@@ -1,10 +1,11 @@
-﻿using System;
+﻿using NLBLib.Servers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace WNLB.Modules.LoadBalancer
+namespace NLBLib.Routers
 {
     public interface RequestRouter
     {

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using NLBLib.Routers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WNLB.Modules.LoadBalancer
+namespace NLBLib.Applications
 {
     public class StaticApplication : Application
     {

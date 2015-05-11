@@ -205,16 +205,6 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Modules\LoadBalancer\Application.cs" />
-    <Compile Include="Modules\LoadBalancer\ApplicationRegister.cs" />
-    <Compile Include="Modules\LoadBalancer\AppServer.cs" />
-    <Compile Include="Modules\LoadBalancer\BasicAppServer.cs" />
-    <Compile Include="Modules\LoadBalancer\LoadBalancerModule.cs" />
-    <Compile Include="Modules\LoadBalancer\RequestRouter.cs" />
-    <Compile Include="Modules\LoadBalancer\RoundRobinRequestRouter.cs" />
-    <Compile Include="Modules\LoadBalancer\ServerStatus.cs" />
-    <Compile Include="Modules\LoadBalancer\StaticApplication.cs" />
-    <Compile Include="Modules\LoadBalancer\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -285,6 +275,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NLBLib\NLBLib.csproj">
+      <Project>{4c540614-3450-490e-bfd5-a92da0c7ddae}</Project>
+      <Name>NLBLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

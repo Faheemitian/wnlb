@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLBLib.Servers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -7,8 +8,11 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using NLBLib.Misc;
+using System.Web.Management;
+using NLBLib.HealthEvents;
 
-namespace WNLB.Modules.LoadBalancer
+namespace NLBLib.Routers
 {
     public class RoundRobinRequestRouter : RequestRouter
     {
@@ -26,6 +30,18 @@ namespace WNLB.Modules.LoadBalancer
         public void RouteRequest(HttpContext requestContext)
         {
             var server = GetNextServer(requestContext);
+            // Check server status and raise event
+            /*
+            if (_appServerIndex % 2 == 0)
+            {
+                EventManager.RaiseServerDownEvent(server, this);
+            }
+            else
+            {
+                EventManager.RaiseServerUpEvent(server, this);
+            }
+             */
+
             ProcessRequest(requestContext, server);
         }
 

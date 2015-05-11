@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WNLB.Modules.LoadBalancer
+namespace NLBLib.Servers
 {
     public class BasicAppServer : AppServer
     {
@@ -44,10 +44,5 @@ namespace WNLB.Modules.LoadBalancer
         public ServerStatus Status { get; private set; }
         public int Uptime { get; private set;  }
         public Boolean HasHeartbeat { get; private set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
     }
 }

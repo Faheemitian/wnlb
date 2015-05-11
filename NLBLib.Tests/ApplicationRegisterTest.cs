@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WNLB.Modules.LoadBalancer;
+using NLBLib.Applications;
 
-namespace WNLB.Tests.Modules.LoadBalancer
+namespace NLBLib.Tests
 {
     [TestClass]
     public class ApplicationRegisterTest

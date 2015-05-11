@@ -1,12 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NLBLib.Routers;
+using NLBLib.Servers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WNLB.Modules.LoadBalancer;
 
-namespace WNLB.Tests.Modules.LoadBalancer
+namespace NLBLib.Tests
 {
     [TestClass]
     public class RoundRobinRequestRouterTest
