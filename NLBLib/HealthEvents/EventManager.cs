@@ -18,8 +18,7 @@ namespace NLBLib.HealthEvents
         {
             string message = String.Format("{0} SERVER IS DOWN", server.Name);
             string[] details =  new string[] { String.Format("Backend App Server {0} is DOWN", server.Name),
-                                  String.Format("Hostname: {0}", server.Hostname),
-                                  String.Format("IP: {0}", server.IPAddress),
+                                  String.Format("HOST: {0}", server.Host),
                                   String.Format("PORT: {0}", server.Port) };
 
             try
@@ -37,8 +36,7 @@ namespace NLBLib.HealthEvents
         {
             string message = String.Format("{0} SERVER IS BACK UP", server.Name);
             string[] details = new string[] { String.Format("Backend App Server {0} is back up", server.Name),
-                                  String.Format("Hostname: {0}", server.Hostname),
-                                  String.Format("IP: {0}", server.IPAddress),
+                                  String.Format("HOST: {0}", server.Host),
                                   String.Format("PORT: {0}", server.Port) };
 
             try
