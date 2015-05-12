@@ -3,24 +3,38 @@ using NLBLib.Routers;
 using NLBLib.Servers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
 namespace NLBLib
 {
+    /// <summary>
+    /// <code>IHttpModule</code> class deritive. This class when registered as HttpModule subscribes
+    /// to ASP.NET application <code>BeginRequest</code> and <code>EndRequest</code> events and 
+    /// sets up the load balancer.
+    /// </summary>
     public class LoadBalancerModule : IHttpModule
     {
-        private ApplicationRegister _appRegister = new ApplicationRegister();
+        private static ApplicationRegister _appRegister = new ApplicationRegister();
+        private static ServerRegister _serverRegister = new ServerRegister();
 
-        public LoadBalancerModule()
+        static LoadBalancerModule()
         {
-            var appServers = new List<AppServer> { 
-                new BasicAppServer("Srv8003", "localhost", "127.0.0.1", 8003),
-                new BasicAppServer("Srv8002", "localhost", "127.0.0.1", 8002) 
-            };
+            _serverRegister.AddServer(new BasicAppServer("Srv8003", "localhost", 8003));
+            _serverRegister.AddServer(new BasicAppServer("Srv8002", "localhost", 8002));
+
+            ServerMintoringThread.Instance.StartMonitoring(_serverRegister);
+
+            var appServers = new List<AppServer> { _serverRegister.GetServerWithName("Srv8003"), 
+                _serverRegister.GetServerWithName("Srv8002") };
 
             var requestRouter = new RoundRobinRequestRouter(appServers);
             _appRegister.AddAppliction(new StaticApplication("AlpahSampleApp", "/", requestRouter));
+        }
+
+        public LoadBalancerModule()
+        {            
         }
 
         public void Init(HttpApplication context)
@@ -45,8 +59,7 @@ namespace NLBLib
             Application app = _appRegister.GetApplicationForPath(request.Path);
             if (app == null)
             {
-                // TODO: Log this event
-                Console.WriteLine("No application registered for path %s", request.Path);
+                Trace.WriteLine(String.Format("Invalid requeset. No application registered for path {0}", request.Path));
                 throw new HttpException(404, "Path not available");
             }
 

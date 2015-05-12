@@ -48,11 +48,16 @@
     <Compile Include="HealthEvents\InfoEvent.cs" />
     <Compile Include="HealthEvents\ErrorEvent.cs" />
     <Compile Include="LoadBalancerModule.cs" />
+    <Compile Include="Misc\CaseInsensitiveStringComparer.cs" />
+    <Compile Include="Misc\HttpRequestProcesser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routers\RequestRouter.cs" />
+    <Compile Include="Routers\IPHashRequestRouter.cs" />
     <Compile Include="Routers\RoundRobinRequestRouter.cs" />
     <Compile Include="Servers\AppServer.cs" />
     <Compile Include="Servers\BasicAppServer.cs" />
+    <Compile Include="Servers\ServerMintoringThread.cs" />
+    <Compile Include="Servers\ServerRegister.cs" />
     <Compile Include="Servers\ServerStatus.cs" />
     <Compile Include="Misc\Utils.cs" />
   </ItemGroup>

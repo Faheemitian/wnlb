@@ -24,9 +24,9 @@ namespace NLBLib.Tests
         public void GetNextServerTest()
         {
             var appServers = new List<AppServer> {
-                new BasicAppServer("Server1", "Hostname", "IPAddress", 80),
-                new BasicAppServer("Server2", "Hostname", "IPAddress", 80),
-                new BasicAppServer("Server3", "Hostname", "IPAddress", 80)
+                new BasicAppServer("Server1", "Hostname", 80),
+                new BasicAppServer("Server2", "Hostname", 80),
+                new BasicAppServer("Server3", "Hostname", 80)
             };
             RoundRobinRequestRouter router = new RoundRobinRequestRouter(appServers);
 
