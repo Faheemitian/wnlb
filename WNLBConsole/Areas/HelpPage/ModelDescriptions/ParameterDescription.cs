@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace WNLB.Areas.HelpPage.ModelDescriptions
+namespace WNLBConsole.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterDescription
     {

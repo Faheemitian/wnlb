@@ -1,6 +1,6 @@
 using System;
 
-namespace WNLB.Areas.HelpPage.ModelDescriptions
+namespace WNLBConsole.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

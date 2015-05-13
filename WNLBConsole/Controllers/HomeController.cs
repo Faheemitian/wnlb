@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WNLB.Controllers
+namespace WNLBConsole.Controllers
 {
     public class HomeController : Controller
     {

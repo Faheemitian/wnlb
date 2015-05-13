@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WNLB;
-using WNLB.Controllers;
+using WNLBConsole;
+using WNLBConsole.Controllers;
 
-namespace WNLB.Tests.Controllers
+namespace WNLBConsole.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest

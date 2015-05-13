@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace WNLB
+namespace WNLBConsole
 {
     public class BundleConfig
     {

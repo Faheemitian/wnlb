@@ -8,10 +8,10 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using WNLB.Providers;
-using WNLB.Models;
+using WNLBConsole.Providers;
+using WNLBConsole.Models;
 
-namespace WNLB
+namespace WNLBConsole
 {
     public partial class Startup
     {
