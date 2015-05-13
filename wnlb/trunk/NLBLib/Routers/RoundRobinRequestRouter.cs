@@ -21,14 +21,14 @@ namespace NLBLib.Routers
     {
         private List<AppServer> _appServers;
         private static int _appServerIndex;
-        private HttpClient _client;
+        private HttpRequestProcessor _requestProcessor;
         private static readonly object _serverIndexLocker = new object();
 
         public RoundRobinRequestRouter(List<AppServer> appServers)
         {
             _appServers = appServers;
             _appServerIndex = 0;
-            _client = new HttpClient();
+            _requestProcessor = new HttpRequestProcessor();
         }
 
         public void RouteRequest(HttpContext requestContext)
@@ -40,55 +40,32 @@ namespace NLBLib.Routers
         private void ProcessRequest(HttpContext requestContext, AppServer server)
         {
             HttpRequest request = requestContext.Request;
-            HttpMethod method = new HttpMethod(request.HttpMethod);
-            String uriString = String.Format("{0}://{1}:{2}{3}", request.Url.Scheme, server.Host, server.Port, request.Url.PathAndQuery);
-            Uri routedUri = new Uri(uriString);
-            HttpRequestMessage forwardRequest = new HttpRequestMessage(method, routedUri);
-
-            HttpResponseMessage forwardedResponse = null;
+            HttpResponse response = requestContext.Response;
 
             try
             {
-                forwardedResponse = _client.SendAsync(forwardRequest, HttpCompletionOption.ResponseHeadersRead).Result;
+                _requestProcessor.ProcessSendRequest(server, request, response);
 
-            } 
-            catch(AggregateException ae)
+            }
+            catch (SocketException)
             {
-                Exception ex = ae.InnerException;
-                while (ex.InnerException != null) ex = ex.InnerException;
-                if (ex is SocketException)
-                {
-                    // server is down
-                    server.Status = ServerStatus.DOWN;
+                // server is down
+                server.Status = ServerStatus.DOWN;
 
-                    // re-route request
-                    RouteRequest(requestContext);
-                    return;
-                }
-                else
-                {
-                    Debug.Write("Failed to process request " + ex.Message);
-                    throw new HttpException(500, "Server Error");
-                }
+                // re-route request
+                RouteRequest(requestContext);
+                return;
+            }
+            catch(Exception ex)
+            {
+                //
+                // If something else is wrong, just forward it
+                //
+                Debug.Write("Failed to process request: " + ex.Message);
+                throw new HttpException(500, "Server Error");
             }
 
-            HttpResponse response = requestContext.Response;
-
-            foreach (var header in forwardedResponse.Headers)
-            {
-                StringBuilder headerValue = new StringBuilder();
-                foreach (var value in header.Value)
-                {
-                    headerValue.Append(value).Append(";");
-                }
-
-                response.Headers.Add(header.Key, headerValue.ToString());
-            }
-
-            response.Headers.Add("X-Server", server.Name);
-            var stream = forwardedResponse.Content.ReadAsStreamAsync().Result;
-            stream.CopyTo(response.OutputStream);
-
+            //response.Headers.Add("X-Server", server.Name);
             response.End();
         }
 
@@ -125,7 +102,9 @@ namespace NLBLib.Routers
             return nextServer;
         }
 
-
+        /// <summary>
+        /// Returns readonly collection of registered app servers
+        /// </summary>
         public IList<AppServer> AppServers
         {
             get
