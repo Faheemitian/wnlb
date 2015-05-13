@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WNLB.Models
+namespace WNLBConsole.Models
 {
     // Models returned by AccountController actions.
 

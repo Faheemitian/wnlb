@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using WNLB.Areas.HelpPage.ModelDescriptions;
+using WNLBConsole.Areas.HelpPage.ModelDescriptions;
 
-namespace WNLB.Areas.HelpPage.Models
+namespace WNLBConsole.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

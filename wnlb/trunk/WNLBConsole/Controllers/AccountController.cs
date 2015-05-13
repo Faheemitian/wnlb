@@ -13,11 +13,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using WNLB.Models;
-using WNLB.Providers;
-using WNLB.Results;
+using WNLBConsole.Models;
+using WNLBConsole.Providers;
+using WNLBConsole.Results;
 
-namespace WNLB.Controllers
+namespace WNLBConsole.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]

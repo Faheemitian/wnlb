@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace WNLB.Areas.HelpPage
+namespace WNLBConsole.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

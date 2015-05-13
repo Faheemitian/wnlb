@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace WNLB.Areas.HelpPage.ModelDescriptions
+namespace WNLBConsole.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {
