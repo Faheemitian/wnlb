@@ -48,6 +48,7 @@ namespace NLBLib.Misc
 
                 HttpResponseMessage forwardResponse = _client.SendAsync(forwardRequest, HttpCompletionOption.ResponseHeadersRead).Result;
                 CopyHeaders(forwardResponse, response);
+                response.StatusCode = (int)forwardResponse.StatusCode;
                 
                 //
                 // Copy contents
