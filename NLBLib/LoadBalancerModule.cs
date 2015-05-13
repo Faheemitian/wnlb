@@ -23,6 +23,7 @@ namespace NLBLib
         {
             _serverRegister.AddServer(new BasicAppServer("Srv8003", "localhost", 8003));
             _serverRegister.AddServer(new BasicAppServer("Srv8002", "localhost", 8002));
+            _serverRegister.AddServer(new BasicAppServer("WnlbConsoleSrv", "localhost", 49337));
 
             ServerMintoringThread.Instance.StartMonitoring(_serverRegister);
 
@@ -30,7 +31,10 @@ namespace NLBLib
                 _serverRegister.GetServerWithName("Srv8002") };
 
             var requestRouter = new RoundRobinRequestRouter(appServers);
+            var consoleRouter = new RoundRobinRequestRouter(new List<AppServer> { _serverRegister.GetServerWithName("WnlbConsoleSrv") });
+
             _appRegister.AddAppliction(new StaticApplication("AlpahSampleApp", "/", requestRouter));
+            _appRegister.AddAppliction(new StaticApplication("WnlbConsoleApp", "/config", consoleRouter));
         }
 
         public LoadBalancerModule()

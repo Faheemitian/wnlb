@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace NLBLib.Servers
 {
+    /// <summary>
+    /// Provides server monitoring capability
+    /// </summary>
     public class ServerMintoringThread
     {
         private static readonly object _singletonLock = new object();
@@ -25,6 +28,9 @@ namespace NLBLib.Servers
             {
                 lock (_singletonLock)
                 {
+                    //
+                    // @ThreadSafe Singleton
+                    //
                     if (_instance == null)
                     {
                         _instance = new ServerMintoringThread();
@@ -35,8 +41,16 @@ namespace NLBLib.Servers
             }
         }
 
+        /// <summary>
+        /// Stores a reference to register and starts monitoring list of registered servers
+        /// on a separate thread.
+        /// </summary>
+        /// <param name="serverRegister"></param>
         public void StartMonitoring(ServerRegister serverRegister)
         {
+            //
+            // Make sure we don't start this thread twice
+            //
             if (checkAndSetMonitoring())
             {
                 _serverRegister = serverRegister;
@@ -46,18 +60,28 @@ namespace NLBLib.Servers
             }
         }
 
+        /// <summary>
+        /// Stops server monitoring thread
+        /// </summary>
         public void StopMonitoring()
         {
+            //
+            // Our worker looks for interrupt signal to stop
+            //
             _serverMintoringThread.Interrupt();
         }
 
+        // Actual worker method for the thread. Worker iterates through server
+        // list every few mins and marks server down or available.
         private void ServerMonitor()
         {
             try
             {
+                AppServer[] serverList = _serverRegister.Servers.ToArray<AppServer>();
+
                 do
                 {
-                    foreach (var server in _serverRegister.Servers)
+                    foreach (var server in serverList)
                     {
                         if (isDown(server))
                         {
@@ -80,6 +104,9 @@ namespace NLBLib.Servers
             }
         }
 
+        //
+        // checks if server host is accessible
+        //
         private bool isDown(AppServer server)
         {
             Uri serverUri = new UriBuilder("http", server.Host, server.Port).Uri;
@@ -88,6 +115,9 @@ namespace NLBLib.Servers
             return !processor.IsHttpAccessible(serverUri);
         }
 
+        //
+        // Sets and returns monitoring flag if it's not already set. @ThreadSafe
+        //
         private bool checkAndSetMonitoring()
         {
             lock (_monitorLock)
