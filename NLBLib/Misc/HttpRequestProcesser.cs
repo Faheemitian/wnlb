@@ -47,8 +47,7 @@ namespace NLBLib.Misc
                 CopyHeaders(request, forwardRequest);
 
                 HttpResponseMessage forwardResponse = _client.SendAsync(forwardRequest, HttpCompletionOption.ResponseHeadersRead).Result;
-                CopyHeaders(forwardResponse, response);
-                response.StatusCode = (int)forwardResponse.StatusCode;
+                CopyHeaders(forwardResponse, response);                
                 
                 //
                 // Copy contents
@@ -111,6 +110,11 @@ namespace NLBLib.Misc
             {
                 AddHeaderToResponse(response, header);
             }
+
+            //
+            // Copy status code
+            //
+            response.StatusCode = (int)responseMessage.StatusCode;
         }
 
         private void AddHeaderToResponse(HttpResponse response, KeyValuePair<string, IEnumerable<string>> header)
