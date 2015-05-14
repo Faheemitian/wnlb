@@ -4,9 +4,9 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(WNLBConsole.Startup))]
+[assembly: OwinStartup(typeof(WNLB.Startup))]
 
-namespace WNLBConsole
+namespace WNLB
 {
     public partial class Startup
     {
