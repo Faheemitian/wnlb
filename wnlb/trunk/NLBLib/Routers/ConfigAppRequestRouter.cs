@@ -22,6 +22,7 @@ namespace NLBLib.Routers
     /// </summary>
     public class ConfigAppRequestRouter : RequestRouter
     {
+
         public ConfigAppRequestRouter()
         {
         }
@@ -30,8 +31,7 @@ namespace NLBLib.Routers
         /// Returns context without processing
         /// </summary>
         public void RouteRequest(HttpContext requestContext)
-        {
-            return;
+        {            
         }
 
         /// <summary>
