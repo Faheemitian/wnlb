@@ -1,4 +1,5 @@
-﻿using NLBLib;
+﻿using Microsoft.Practices.Unity;
+using NLBLib;
 using NLBLib.Applications;
 using NLBLib.Routers;
 using NLBLib.Servers;
@@ -10,14 +11,12 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WNLB.Misc;
 
 namespace WNLB
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
-        private static ApplicationRegister _appRegister = new ApplicationRegister();
-        private static ServerRegister _serverRegister = new ServerRegister();
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -31,20 +30,23 @@ namespace WNLB
 
         private void StartLoadBalancerModule()
         {
-            _serverRegister.AddServer(new BasicAppServer("Srv8003", "localhost", 8003));
-            _serverRegister.AddServer(new BasicAppServer("Srv8002", "localhost", 8002));
-            _serverRegister.AddServer(new LocalAppServer("WNLB_Console"));
+            IUnityContainer container = WNLB.App_Start.UnityConfig.GetConfiguredContainer();
+            INLBService service = container.Resolve<INLBService>("NLBService");
 
-            var appServers = new List<AppServer> { _serverRegister.GetServerWithName("Srv8003"), 
-                    _serverRegister.GetServerWithName("Srv8002") };
+            service.ServerRegister.AddServer(new BasicAppServer("Srv8003", "localhost", 8003));
+            service.ServerRegister.AddServer(new BasicAppServer("Srv8002", "localhost", 8002));
+            service.ServerRegister.AddServer(new LocalAppServer("WNLB_Console"));
+
+            var appServers = new List<AppServer> { service.ServerRegister.GetServerWithName("Srv8003"), 
+                    service.ServerRegister.GetServerWithName("Srv8002") };
 
             var requestRouter = new RoundRobinRequestRouter(appServers);
 
-            _appRegister.AddAppliction(new ConfigApplication("WnlbConsoleApp", "/_config")); 
-            _appRegister.AddAppliction(new StaticApplication("AlpahSampleApp", "/", requestRouter));            
+            service.AppRegister.AddAppliction(new ConfigApplication("WnlbConsoleApp", "/_config"));
+            service.AppRegister.AddAppliction(new StaticApplication("AlpahSampleApp", "/", requestRouter));
 
-            LoadBalancerModule.ServerRegister = _serverRegister;
-            LoadBalancerModule.AppRegister = _appRegister;
+            LoadBalancerModule.ServerRegister = service.ServerRegister;
+            LoadBalancerModule.AppRegister = service.AppRegister;
             LoadBalancerModule.StartServerMintoring();
         }
     }
