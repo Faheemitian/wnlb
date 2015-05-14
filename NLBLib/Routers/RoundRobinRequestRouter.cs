@@ -90,7 +90,7 @@ namespace NLBLib.Routers
                     _appServerIndex++;
                     serverCount--;
 
-                } while (!nextServer.IsAvailable && serverCount > 0);
+                } while (nextServer.IsDown && serverCount > 0);
             }
 
             // did loop return a bad server after exhaustion?

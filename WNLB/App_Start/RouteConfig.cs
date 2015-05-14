@@ -11,11 +11,11 @@ namespace WNLB
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("_config/{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
                 name: "Default",
-                url: "config/{controller}/{action}/{id}",
+                url: "_config/{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
