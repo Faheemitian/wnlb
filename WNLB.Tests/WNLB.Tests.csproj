@@ -102,7 +102,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WNLBConsole\WNLB.csproj">
+    <ProjectReference Include="..\WNLB\WNLB.csproj">
       <Project>{AA2FA284-7F7C-4503-989B-20F959967322}</Project>
       <Name>WNLB</Name>
     </ProjectReference>
