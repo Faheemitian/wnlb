@@ -34,7 +34,7 @@ namespace NLBLib
             var consoleRouter = new RoundRobinRequestRouter(new List<AppServer> { _serverRegister.GetServerWithName("WnlbConsoleSrv") });
 
             _appRegister.AddAppliction(new StaticApplication("AlpahSampleApp", "/", requestRouter));
-            _appRegister.AddAppliction(new StaticApplication("WnlbConsoleApp", "/config", consoleRouter));
+            _appRegister.AddAppliction(new ConfigApplication("WnlbConsoleApp", "/_config"));
         }
 
         public LoadBalancerModule()
