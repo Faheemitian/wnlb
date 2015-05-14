@@ -57,6 +57,7 @@
     <Compile Include="Routers\ConfigAppRequestRouter.cs" />
     <Compile Include="Routers\RoundRobinRequestRouter.cs" />
     <Compile Include="Servers\AppServer.cs" />
+    <Compile Include="Servers\LocalAppServer.cs" />
     <Compile Include="Servers\BasicAppServer.cs" />
     <Compile Include="Servers\ServerMintoringThread.cs" />
     <Compile Include="Servers\ServerRegister.cs" />

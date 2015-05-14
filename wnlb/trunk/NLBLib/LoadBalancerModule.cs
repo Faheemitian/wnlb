@@ -16,35 +16,22 @@ namespace NLBLib
     /// </summary>
     public class LoadBalancerModule : IHttpModule
     {
-        private static ApplicationRegister _appRegister = new ApplicationRegister();
-        private static ServerRegister _serverRegister = new ServerRegister();
-
-        static LoadBalancerModule()
-        {
-            _serverRegister.AddServer(new BasicAppServer("Srv8003", "localhost", 8003));
-            _serverRegister.AddServer(new BasicAppServer("Srv8002", "localhost", 8002));
-            _serverRegister.AddServer(new BasicAppServer("WnlbConsoleSrv", "localhost", 49337));
-
-            ServerMintoringThread.Instance.StartMonitoring(_serverRegister);
-
-            var appServers = new List<AppServer> { _serverRegister.GetServerWithName("Srv8003"), 
-                _serverRegister.GetServerWithName("Srv8002") };
-
-            var requestRouter = new RoundRobinRequestRouter(appServers);
-            var consoleRouter = new RoundRobinRequestRouter(new List<AppServer> { _serverRegister.GetServerWithName("WnlbConsoleSrv") });
-
-            _appRegister.AddAppliction(new StaticApplication("AlpahSampleApp", "/", requestRouter));
-            _appRegister.AddAppliction(new ConfigApplication("WnlbConsoleApp", "/_config"));
-        }
-
         public LoadBalancerModule()
         {            
         }
+
+        public static ApplicationRegister AppRegister { get; set; }
+        public static ServerRegister ServerRegister { get; set; }
 
         public void Init(HttpApplication context)
         {
             context.BeginRequest += new EventHandler(this.beginRequestHandler);
             context.EndRequest += new EventHandler(this.endRequestHandler);
+        }
+
+        public static void StartServerMintoring()
+        {
+            ServerMintoringThread.Instance.StartMonitoring(ServerRegister);
         }
 
         private void endRequestHandler(object sender, EventArgs e)
@@ -60,7 +47,7 @@ namespace NLBLib
             HttpContext context = application.Context;
             HttpRequest request = context.Request;
 
-            Application app = _appRegister.GetApplicationForPath(request.Path);
+            Application app = AppRegister.GetApplicationForPath(request.Path);
             if (app == null)
             {
                 Trace.WriteLine(String.Format("Invalid requeset. No application registered for path {0}", request.Path));

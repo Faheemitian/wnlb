@@ -83,7 +83,7 @@ namespace NLBLib.Servers
                 {
                     foreach (var server in serverList)
                     {
-                        if (isDown(server))
+                        if (!(server is LocalAppServer) && isDown(server))
                         {
                             server.Status = ServerStatus.DOWN;
                         }
