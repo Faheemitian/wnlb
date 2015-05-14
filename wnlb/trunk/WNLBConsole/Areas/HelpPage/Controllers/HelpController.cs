@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using WNLBConsole.Areas.HelpPage.ModelDescriptions;
-using WNLBConsole.Areas.HelpPage.Models;
+using WNLB.Areas.HelpPage.ModelDescriptions;
+using WNLB.Areas.HelpPage.Models;
 
-namespace WNLBConsole.Areas.HelpPage.Controllers
+namespace WNLB.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

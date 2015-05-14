@@ -9,9 +9,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using WNLBConsole.Models;
+using WNLB.Models;
 
-namespace WNLBConsole.Providers
+namespace WNLB.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace WNLBConsole.Models
+namespace WNLB.Models
 {
     // Models used as parameters to AccountController actions.
 

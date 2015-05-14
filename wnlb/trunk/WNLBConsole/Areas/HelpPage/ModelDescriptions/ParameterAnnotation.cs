@@ -1,6 +1,6 @@
 using System;
 
-namespace WNLBConsole.Areas.HelpPage.ModelDescriptions
+namespace WNLB.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterAnnotation
     {

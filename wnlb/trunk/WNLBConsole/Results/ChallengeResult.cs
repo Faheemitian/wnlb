@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace WNLBConsole.Results
+namespace WNLB.Results
 {
     public class ChallengeResult : IHttpActionResult
     {

@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using WNLBConsole.Areas.HelpPage.ModelDescriptions;
-using WNLBConsole.Areas.HelpPage.Models;
+using WNLB.Areas.HelpPage.ModelDescriptions;
+using WNLB.Areas.HelpPage.Models;
 
-namespace WNLBConsole.Areas.HelpPage
+namespace WNLB.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

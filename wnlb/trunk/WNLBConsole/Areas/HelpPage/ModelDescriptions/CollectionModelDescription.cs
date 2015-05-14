@@ -1,4 +1,4 @@
-namespace WNLBConsole.Areas.HelpPage.ModelDescriptions
+namespace WNLB.Areas.HelpPage.ModelDescriptions
 {
     public class CollectionModelDescription : ModelDescription
     {

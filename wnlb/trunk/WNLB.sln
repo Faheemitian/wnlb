@@ -1,38 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WNLBConsole", "WNLBConsole\WNLBConsole.csproj", "{AA2FA284-7F7C-4503-989B-20F959967322}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WNLB", "WNLBConsole\WNLB.csproj", "{AA2FA284-7F7C-4503-989B-20F959967322}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WNLBConsole.Tests", "WNLBConsole.Tests\WNLBConsole.Tests.csproj", "{9E8EFEA8-24FD-4365-9BE9-A071FD9A6CDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WNLB.Tests", "WNLBConsole.Tests\WNLB.Tests.csproj", "{9E8EFEA8-24FD-4365-9BE9-A071FD9A6CDA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLBLib", "NLBLib\NLBLib.csproj", "{4C540614-3450-490E-BFD5-A92DA0C7DDAE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLBLib.Tests", "NLBLib.Tests\NLBLib.Tests.csproj", "{4386A1F8-3B9A-4CDB-9EBB-F39592A9278A}"
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WNLB", "http://localhost:64527", "{CE797618-48BE-47BA-A726-D53C78A7B166}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{4c540614-3450-490e-bfd5-a92da0c7ddae}|NLBLib.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_64527"
-		Debug.AspNetCompiler.PhysicalPath = "WNLB\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64527\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_64527"
-		Release.AspNetCompiler.PhysicalPath = "WNLB\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64527\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "WNLB\"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,10 +33,6 @@ Global
 		{4386A1F8-3B9A-4CDB-9EBB-F39592A9278A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4386A1F8-3B9A-4CDB-9EBB-F39592A9278A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4386A1F8-3B9A-4CDB-9EBB-F39592A9278A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE797618-48BE-47BA-A726-D53C78A7B166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE797618-48BE-47BA-A726-D53C78A7B166}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE797618-48BE-47BA-A726-D53C78A7B166}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE797618-48BE-47BA-A726-D53C78A7B166}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
