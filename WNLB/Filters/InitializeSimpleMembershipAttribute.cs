@@ -4,6 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
+using WNLB.Misc;
 using WNLB.Models;
 
 namespace WNLB.Filters
@@ -25,20 +26,25 @@ namespace WNLB.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<UsersContext>(new InitSecurityDb());
 
                 try
                 {
                     using (var context = new UsersContext())
                     {
-                        if (!context.Database.Exists())
+                        /*if (!context.Database.Exists())
                         {
                             // Create the SimpleMembership database without Entity Framework migration schema
                             ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
-                        }
+                        }*/
+
+                        context.Database.Initialize(true);
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    if (!WebSecurity.Initialized) {
+                        WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
