@@ -11,6 +11,10 @@ namespace WNLB
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/_configResources/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/_configResources/Scripts/jquery.validate*",
+                        "~/_configResources/Scripts/_val_extension.js"));            
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -22,6 +26,7 @@ namespace WNLB
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/_configResources/Content/bootstrap.css",
+                      "~/_configResources/Content/bootstrap-theme.css",
                       "~/_configResources/Content/site.css"));
         }
     }
