@@ -212,17 +212,18 @@
     <Compile Include="Misc\NLBService.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="_configResources\Scripts\_val_extension.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Icon.png" />
+    <Content Include="_configResources\Content\bootstrap-theme.css" />
     <Content Include="_configResources\Content\bootstrap.css" />
-    <Content Include="_configResources\Content\bootstrap.min.css" />
-    <Content Include="_configResources\Content\Site.css" />
+    <Content Include="_configResources\Content\site.css" />
     <Content Include="_configResources\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="_configResources\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="_configResources\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="_configResources\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="_configResources\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Icon.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -256,7 +257,6 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -264,6 +264,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="_configResources\Scripts\bootstrap.js" />
     <Content Include="_configResources\Scripts\bootstrap.min.js" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <None Include="_configResources\Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="_configResources\Scripts\jquery-1.10.2.js" />
     <Content Include="_configResources\Scripts\jquery-1.10.2.min.js" />
@@ -273,6 +274,7 @@
     <Content Include="_configResources\Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="_configResources\Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="_configResources\Scripts\modernizr-2.6.2.js" />
+    <Content Include="_configResources\Scripts\npm.js" />
     <Content Include="_configResources\Scripts\respond.js" />
     <Content Include="_configResources\Scripts\respond.min.js" />
     <None Include="_configResources\Scripts\_references.js" />
