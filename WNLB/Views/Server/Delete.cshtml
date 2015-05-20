@@ -1,0 +1,47 @@
+﻿@model WNLB.Models.Server
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Server</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ServerName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServerName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ServerHost)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServerHost)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Port)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Port)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsAvailable)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsAvailable)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

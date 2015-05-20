@@ -8,14 +8,16 @@ using System.Web.Security;
 
 namespace WNLB.Models
 {
-    public class UsersContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public UsersContext()
+        public AppDbContext()
             : base("DefaultConnection")
         {
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
+        protected DbSet<Server> Servers { get; set; }
+        protected DbSet<Application> Applications { get; set; }
     }
 
     [Table("UserProfile")]
