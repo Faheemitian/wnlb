@@ -1,31 +1,14 @@
-﻿@model NLBLib.Servers.AppServer
+﻿@model Tuple<IEnumerable<WNLB.Models.Application>, IEnumerable<WNLB.Models.Server>>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
+@{
+    ViewBag.Title = "WNLBv1.0 Configuration Console App";
+}
 
-    <div class="row">
-        <div>@Model.Name</div>
-        <div>@Model.Status</div>
-        <div>@Model.Host</div>
+@Html.Partial("_Servers", @Model.Item2)
 
-        @Html.Partial("_LoginPartial")
-        </
-    </div>
 
-</div>
+<div class="row">&nbsp;</div>
+<div class="row">&nbsp;</div>
+<div class="row">&nbsp;</div>
+
+@Html.Partial("_Apps", @Model.Item1)

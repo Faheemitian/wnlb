@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WNLB.Models.Server>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4>Servers</h4>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <a href="@Url.Action("Create", "Server")" class="btn btn-default" role="button"><i class='glyphicon glyphicon-plus'></i> Add Server</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Table -->
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ServerName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ServerHost)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Port)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsAvailable)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServerHost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Port)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsAvailable)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Server", new { id = item.ServerId }) |
+                            <!--@Html.ActionLink("Details", "Details", new { id = item.ServerId }) |-->
+                            @Html.ActionLink("Delete", "Delete", "Server", new { id = item.ServerId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+

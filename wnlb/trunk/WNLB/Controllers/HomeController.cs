@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WNLB.Misc;
+using WNLB.Models;
 
 namespace WNLB.Controllers
 {
@@ -13,18 +14,16 @@ namespace WNLB.Controllers
         [Dependency("NLBService")]
         public INLBService NLBService { get; set; }
 
+        private WNLBContext db = new WNLBContext();
+
         [Authorize]
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return View(NLBService.ServerRegister.GetServerWithName("Srv8003"));
+            return View(Tuple.Create<IEnumerable<Application>, IEnumerable<Server>>(db.Applications.ToList(), db.Servers.ToList()));
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
-
             return View();
         }
     }
