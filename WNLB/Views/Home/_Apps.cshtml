@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WNLB.Models.Application>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4>Applications</h4>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <a href="@Url.Action("Create", "App")" class="btn btn-default" role="button"><i class='glyphicon glyphicon-plus'></i> Add App</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Table -->
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AppName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Path)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AppType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoutingAlgorithm)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AppName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Path)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AppType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoutingAlgorithm)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "App", new { id = item.AppId }) |
+                            <!--@Html.ActionLink("Details", "Details", new { id = item.AppId }) |-->
+                            @Html.ActionLink("Delete", "Delete", "App", new { id = item.AppId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+

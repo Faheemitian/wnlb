@@ -202,16 +202,19 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServerController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\HtmlDropDownExtensions.cs" />
     <Compile Include="Misc\InitSecurityDb.cs" />
     <Compile Include="Misc\INLBService.cs" />
     <Compile Include="Misc\NLBService.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Misc\EnumToStringConverter.cs" />
     <Compile Include="Models\WNLBModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="_configResources\Scripts\_val_extension.js" />
@@ -272,6 +275,13 @@
     <Content Include="Views\Server\Create.cshtml" />
     <Content Include="Views\Server\Edit.cshtml" />
     <Content Include="Views\Server\Delete.cshtml" />
+    <Content Include="Views\App\Index.cshtml" />
+    <Content Include="Views\App\Details.cshtml" />
+    <Content Include="Views\App\Create.cshtml" />
+    <Content Include="Views\App\Edit.cshtml" />
+    <Content Include="Views\App\Delete.cshtml" />
+    <Content Include="Views\Home\_Servers.cshtml" />
+    <Content Include="Views\Home\_Apps.cshtml" />
     <None Include="_configResources\Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="_configResources\Scripts\jquery-1.10.2.js" />
     <Content Include="_configResources\Scripts\jquery-1.10.2.min.js" />

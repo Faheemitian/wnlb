@@ -1,12 +1,14 @@
 ﻿using NLBLib.Applications;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WNLB.Misc;
 
 namespace WNLB.Models
 {
@@ -71,7 +73,7 @@ namespace WNLB.Models
 
         [Column]
         [Display(Name = "App Type")]
-        public int AppType { get; set; }
+        public ApplicationType AppType { get; set; }
 
         [Column]
         [Display(Name = "Algorithm")]
@@ -98,5 +100,13 @@ namespace WNLB.Models
                 new SelectListItem() { Text = "IP-Hash", Value = "3" }
             };
         }
+    }
+
+    [TypeConverter(typeof(EnumToStringConverter))]
+    public enum ApplicationType
+    {
+        RoundRobin,
+        Wighted,
+        IPHash
     }
 }

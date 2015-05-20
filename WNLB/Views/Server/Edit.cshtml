@@ -1,59 +1,54 @@
 ﻿@model WNLB.Models.Server
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Update Server";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Server</legend>
+        <legend>Update Server</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ServerName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ServerName)
-            @Html.ValidationMessageFor(model => model.ServerName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ServerHost)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ServerHost)
-            @Html.ValidationMessageFor(model => model.ServerHost)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServerName, new { @class = "control-label col-sm-3" })
+            <div class="col-sm-9">
+                @Html.TextBoxFor(model => model.ServerName, new { @class = "form-control", autofocus = "" })
+                @Html.ValidationMessageFor(model => model.ServerName)
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Port)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Port)
-            @Html.ValidationMessageFor(model => model.Port)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsAvailable)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsAvailable)
-            @Html.ValidationMessageFor(model => model.IsAvailable)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServerHost, new { @class = "control-label col-sm-3" })
+            <div class="col-sm-9">
+                @Html.TextBoxFor(model => model.ServerHost, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ServerHost)
+            </div>
         </div>
 
-        <p>
-            <input type="submit" value="Save" />
-        </p>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Port, new { @class = "control-label col-sm-3" })
+            <div class="col-sm-1">
+                @Html.TextBoxFor(model => model.Port, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-offset-3 col-sm-9">
+                @Html.ValidationMessageFor(model => model.Port)
+            </div>
+        </div>
+
+        <div class="row">&nbsp;</div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="submit" class="btn btn-default btn-primary">Update Server</button>
+                @Html.ActionLink("Cancel", "Index")
+            </div>
+        </div>
+
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
