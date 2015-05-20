@@ -9,9 +9,9 @@ using WNLB.Models;
 
 namespace WNLB.Misc
 {
-    public class InitSecurityDb : DropCreateDatabaseIfModelChanges<UsersContext>
+    public class InitSecurityDb : DropCreateDatabaseIfModelChanges<AppDbContext>
     {
-        protected override void Seed(UsersContext context)
+        protected override void Seed(AppDbContext context)
         {
 
             if (!WebSecurity.Initialized)

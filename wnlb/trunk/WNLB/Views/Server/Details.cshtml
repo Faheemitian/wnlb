@@ -1,0 +1,43 @@
+﻿@model WNLB.Models.Server
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Server</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ServerName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServerName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ServerHost)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServerHost)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Port)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Port)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsAvailable)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsAvailable)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ServerId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

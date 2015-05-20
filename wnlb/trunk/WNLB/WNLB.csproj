@@ -203,6 +203,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ServerController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -211,6 +212,7 @@
     <Compile Include="Misc\INLBService.cs" />
     <Compile Include="Misc\NLBService.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\WNLBModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="_configResources\Scripts\_val_extension.js" />
   </ItemGroup>
@@ -265,6 +267,11 @@
     <Content Include="_configResources\Scripts\bootstrap.js" />
     <Content Include="_configResources\Scripts\bootstrap.min.js" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Server\Index.cshtml" />
+    <Content Include="Views\Server\Details.cshtml" />
+    <Content Include="Views\Server\Create.cshtml" />
+    <Content Include="Views\Server\Edit.cshtml" />
+    <Content Include="Views\Server\Delete.cshtml" />
     <None Include="_configResources\Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="_configResources\Scripts\jquery-1.10.2.js" />
     <Content Include="_configResources\Scripts\jquery-1.10.2.min.js" />
