@@ -1,4 +1,5 @@
 ﻿@model WNLB.Models.Application
+@using WNLB.HtmlHelpers
 
 @{
     ViewBag.Title = "Add New Application";
@@ -32,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AppType, new { @class = "control-label col-sm-3" })
             <div class="col-sm-9">
-                @Html.DropDownListFor(model => model.AppType, Model.AppTypes, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(model => model.AppType, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.AppType)
             </div>
         </div>
@@ -40,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RoutingAlgorithm, new { @class = "control-label col-sm-3" })
             <div class="col-sm-9">
-                @Html.DropDownListFor(model => model.RoutingAlgorithm, Model.RoutingAlgos, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(model => model.RoutingAlgorithm, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.RoutingAlgorithm)
             </div>
         </div>
@@ -50,6 +51,7 @@
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
                 <button type="submit" class="btn btn-primary">Add Application</button>
+                <span>&nbsp;</span>
                 @Html.ActionLink("Cancel", "Index", "Home")
             </div>
         </div>

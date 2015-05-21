@@ -13,6 +13,9 @@
                     </div>
                 </div>
             </div>
+
+            @if (Model.Count() > 0)
+            {
             <!-- Table -->
             <table class="table">
                 <tr>
@@ -38,23 +41,46 @@
                             @Html.DisplayFor(modelItem => item.ServerName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ServerHost)
+                            @if (item.ServerName.Equals("LocalConfigSrv"))
+                            {
+                                <span>@Request.Url.Host</span>
+                            }
+                            else { 
+                                @Html.DisplayFor(modelItem => item.ServerHost)
+                            }
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Port)
+                            @if (item.ServerName.Equals("LocalConfigSrv"))
+                            {
+                                <span>@Request.Url.Port</span>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.Port)
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IsAvailable)
                         </td>
+                        @if (!item.ServerName.Equals("LocalConfigSrv"))
+                        { 
                         <td>
-                            @Html.ActionLink("Edit", "Edit", "Server", new { id = item.ServerId }) |
+                            @Html.ActionLink("Edit", "Edit", "Server", new { id = item.ServerId }, null) |
                             <!--@Html.ActionLink("Details", "Details", new { id = item.ServerId }) |-->
-                            @Html.ActionLink("Delete", "Delete", "Server", new { id = item.ServerId })
+                            @Html.ActionLink("Delete", "Delete", "Server", new { id = item.ServerId }, null)
                         </td>
+                        }
                     </tr>
                 }
 
             </table>
+            }
+            else
+            {
+                <div class="panel-body">
+                    <p>No servers available</p>
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -4,44 +4,60 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<div class="row">
+    <div class="col-sm-12">
+        <fieldset class="form-horizontal">
+            <legend>Are you sure you want to delete this application?</legend>
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Application</legend>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AppName, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-3">
+                    <span class="form-control">
+                        @Html.DisplayFor(model => model.AppName)
+                    </span>
+                </div>
+            </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.AppName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AppName)
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Path, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-3">
+                    <span class="form-control">
+                        @Html.DisplayFor(model => model.Path)
+                     </span>
+                </div>
+            </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Path)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Path)
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AppType, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-3">
+                    <span class="form-control">
+                        @Html.DisplayFor(model => model.AppType)
+                    </span>
+                </div>
+            </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.AppType)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AppType)
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RoutingAlgorithm, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-3">
+                    <span class="form-control">
+                        @Html.DisplayFor(model => model.RoutingAlgorithm)
+                    </span>
+                </div>
+            </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.RoutingAlgorithm)
+            <div class="row">&nbsp;</div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Delete" class="btn btn-primary" />
+                        <span>&nbsp;</span>
+                        @Html.ActionLink("Cancel", "Index", "Home")
+                    }
+                </div>
+            </div>
+        </fieldset>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.RoutingAlgorithm)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}
+</div>
