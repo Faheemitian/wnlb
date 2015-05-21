@@ -19,7 +19,13 @@ namespace WNLB.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View(Tuple.Create<IEnumerable<Application>, IEnumerable<Server>>(db.Applications.ToList(), db.Servers.ToList()));
+            var apps = db.Applications;
+            var appsList = apps.ToList();
+
+            var servers = db.Servers;
+            var serverList = servers.ToList();
+
+            return View(Tuple.Create<IEnumerable<Application>, IEnumerable<Server>>(appsList, serverList));
         }
 
         public ActionResult About()

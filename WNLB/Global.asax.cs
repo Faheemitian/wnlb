@@ -30,6 +30,8 @@ namespace WNLB
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
 
+            new AppDbContextInitializer().Init();
+
             StartLoadBalancerModule();
         }
 
@@ -38,17 +40,8 @@ namespace WNLB
             IUnityContainer container = WNLB.App_Start.UnityConfig.GetConfiguredContainer();
             INLBService service = container.Resolve<INLBService>("NLBService");
 
-            service.ServerRegister.AddServer(new BasicAppServer("Srv8003", "localhost", 8003));
-            service.ServerRegister.AddServer(new BasicAppServer("Srv8002", "localhost", 8002));
             service.ServerRegister.AddServer(new LocalAppServer("WNLB_Console"));
-
-            var appServers = new List<AppServer> { service.ServerRegister.GetServerWithName("Srv8003"), 
-                    service.ServerRegister.GetServerWithName("Srv8002") };
-
-            var requestRouter = new RoundRobinRequestRouter(appServers);
-
             service.AppRegister.AddAppliction(new ConfigApplication("WnlbConsoleApp", "/_config"));
-            service.AppRegister.AddAppliction(new StaticApplication("AlpahSampleApp", "/", requestRouter));
 
             LoadBalancerModule.ServerRegister = service.ServerRegister;
             LoadBalancerModule.AppRegister = service.AppRegister;
