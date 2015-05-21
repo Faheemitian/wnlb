@@ -25,6 +25,11 @@ namespace WNLB.Misc
             {
                 membership.CreateUserAndAccount("admin", "admin");
             }
+
+            //context.Servers.Add(new Server() { ServerName = "LocalConfigSrv", ServerHost = "localhost", Port = 5555 });
+            //context.Applications.Add(new Application() { AppName = "Config Console", Path = "/_config" });
+
+            //base.Seed(context);
         }
     }
 }

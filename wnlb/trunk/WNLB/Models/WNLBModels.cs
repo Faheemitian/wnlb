@@ -77,7 +77,7 @@ namespace WNLB.Models
 
         [Column]
         [Display(Name = "Algorithm")]
-        public int RoutingAlgorithm { get; set; }
+        public RoutingAlgo RoutingAlgorithm { get; set; }
 
         [ScaffoldColumn(false)]
         [NotMapped]
@@ -86,20 +86,6 @@ namespace WNLB.Models
         [ScaffoldColumn(false)]
         [NotMapped]
         public IEnumerable<SelectListItem> RoutingAlgos { get; set; }
-
-        public Application()
-        {
-            AppTypes = new List<SelectListItem>() {
-                new SelectListItem() { Text = "Static", Value = "1", Selected = true },
-                new SelectListItem() { Text = "Dynamic", Value = "2" }
-            };
-
-            RoutingAlgos = new List<SelectListItem>() {
-                new SelectListItem() { Text = "Round Robin", Value = "1", Selected = true },
-                new SelectListItem() { Text = "Weighted", Value = "2" },
-                new SelectListItem() { Text = "IP-Hash", Value = "3" }
-            };
-        }
     }
 
     [TypeConverter(typeof(EnumToStringConverter))]
@@ -108,5 +94,12 @@ namespace WNLB.Models
         RoundRobin,
         Wighted,
         IPHash
+    }
+
+    [TypeConverter(typeof(EnumToStringConverter))]
+    public enum RoutingAlgo
+    {
+        Static,
+        Dynamic
     }
 }

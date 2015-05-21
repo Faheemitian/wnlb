@@ -1,59 +1,62 @@
 ﻿@model WNLB.Models.Application
+@using WNLB.HtmlHelpers
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Add New Application";
 }
 
-<h2>Edit</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Application</legend>
+        <legend>Edit Application</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AppName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AppName)
-            @Html.ValidationMessageFor(model => model.AppName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Path)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Path)
-            @Html.ValidationMessageFor(model => model.Path)
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppName, new { @class = "control-label col-sm-3" })
+            <div class="col-sm-9">
+                @Html.TextBoxFor(model => model.AppName, new { @class = "form-control", autofocus = "" })
+                @Html.ValidationMessageFor(model => model.AppName)
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AppType)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AppType)
-            @Html.ValidationMessageFor(model => model.AppType)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.RoutingAlgorithm)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.RoutingAlgorithm)
-            @Html.ValidationMessageFor(model => model.RoutingAlgorithm)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Path, new { @class = "control-label col-sm-3" })
+            <div class="col-sm-9">
+                @Html.TextBoxFor(model => model.Path, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Path)
+            </div>
         </div>
 
-        <p>
-            <input type="submit" value="Save" />
-        </p>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppType, new { @class = "control-label col-sm-3" })
+            <div class="col-sm-9">
+                @Html.EnumDropDownListFor(model => model.AppType, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AppType)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoutingAlgorithm, new { @class = "control-label col-sm-3" })
+            <div class="col-sm-9">
+                @Html.EnumDropDownListFor(model => model.RoutingAlgorithm, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RoutingAlgorithm)
+            </div>
+        </div>
+
+        <div class="row">&nbsp;</div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="submit" class="btn btn-primary">Save Application</button>
+                <span>&nbsp;</span>
+                @Html.ActionLink("Cancel", "Index", "Home")
+            </div>
+        </div>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

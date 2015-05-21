@@ -13,6 +13,8 @@
                     </div>
                 </div>
             </div>
+
+            @if (Model.Count() > 0) { 
             <!-- Table -->
             <table class="table">
                 <tr>
@@ -46,15 +48,25 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.RoutingAlgorithm)
                         </td>
+                        @if (!item.Path.Equals("/_config"))
+                        { 
                         <td>
-                            @Html.ActionLink("Edit", "Edit", "App", new { id = item.AppId }) |
+                            @Html.ActionLink("Edit", "Edit", "App", new { id = item.AppId }, null) |
                             <!--@Html.ActionLink("Details", "Details", new { id = item.AppId }) |-->
-                            @Html.ActionLink("Delete", "Delete", "App", new { id = item.AppId })
+                            @Html.ActionLink("Delete", "Delete", "App", new { id = item.AppId }, null)
                         </td>
+                        }
                     </tr>
                 }
 
             </table>
+            }
+            else
+            {
+                <div class="panel-body">
+                    <p>No applications available</p>
+                </div>
+            }
         </div>
     </div>
 </div>
