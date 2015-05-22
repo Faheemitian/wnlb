@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 
@@ -7,7 +9,7 @@ namespace NLBLib.Applications
 {
     public class ApplicationRegister
     {
-        private ISet<Application> _applications = new SortedSet<Application>(new ApplicationPathComparer());
+        private ImmutableSortedSet<Application> _applications = ImmutableSortedSet<Application>.Empty.WithComparer(new ApplicationPathComparer());
 
         /// <summary>
         /// Registers the application
@@ -24,8 +26,8 @@ namespace NLBLib.Applications
                     throw new ArgumentException("Another app registered with given name or path");
                 }
             }
-
-            _applications.Add(newApp);
+            
+            _applications = _applications.Add(newApp);
         }
 
         /// <summary>
@@ -46,7 +48,18 @@ namespace NLBLib.Applications
 
             if (appWithGivenName != null)
             {
-                _applications.Remove(appWithGivenName);
+                _applications = _applications.Remove(appWithGivenName);
+            }
+        }
+
+        /// <summary>
+        /// Gets all registered applications
+        /// </summary>
+        public ISet<Application> Applications
+        {
+            get
+            {
+                return _applications;
             }
         }
 
@@ -57,7 +70,7 @@ namespace NLBLib.Applications
         /// <returns>Registered app object or null</returns>
         public Application GetApplicationForPath(String path)
         {
-            foreach(var value in _applications) 
+            foreach (var value in _applications)
             {
                 if (path.StartsWith(value.AppPath))
                 {
@@ -80,7 +93,7 @@ namespace NLBLib.Applications
         /// </summary>
         public int Compare(Application x, Application y)
         {
-            return  y.AppPath.Length - x.AppPath.Length;
+            return y.AppPath.Length - x.AppPath.Length;
         }
     }
 }

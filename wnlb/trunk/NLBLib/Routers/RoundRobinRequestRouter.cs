@@ -14,19 +14,20 @@ using NLBLib.HealthEvents;
 using System.Net;
 using System.Net.Sockets;
 using System.Diagnostics;
+using System.Collections.Concurrent;
 
 namespace NLBLib.Routers
 {
     public class RoundRobinRequestRouter : RequestRouter
     {
-        private List<AppServer> _appServers;
+        private IList<AppServer> _appServers;
         private static int _appServerIndex;
         private HttpRequestProcessor _requestProcessor;
         private static readonly object _serverIndexLocker = new object();
 
         public RoundRobinRequestRouter(List<AppServer> appServers)
         {
-            _appServers = appServers;
+            _appServers = new List<AppServer>(appServers);
             _appServerIndex = 0;
             _requestProcessor = new HttpRequestProcessor();
         }
@@ -72,13 +73,12 @@ namespace NLBLib.Routers
         public AppServer GetNextServer(HttpContext requestContext)
         {
             AppServer nextServer;
-            int serverCount = _appServers.Count;
-
             lock (_serverIndexLocker)
             {
                 // Round-robin depends on shared state _appServerIndex to keep rolling
                 // correctly. Multiple threads will mess up it's values so we have to keep
                 // this block locked.
+                int serverCount = _appServers.Count;
 
                 do
                 {
@@ -100,6 +100,30 @@ namespace NLBLib.Routers
             }
 
             return nextServer;
+        }
+
+        public void RemoveServer(string serverName)
+        {
+            //
+            // Lock since we are allowing hot edits
+            //
+            lock (_serverIndexLocker)
+            {
+                AppServer theServer = null;
+                foreach (AppServer server in _appServers)
+                {
+                    if (server.Name.Equals(serverName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        theServer = server;
+                        break;
+                    }
+                }
+
+                if (theServer != null)
+                {
+                    _appServers.Remove(theServer);
+                }
+            }
         }
 
         /// <summary>

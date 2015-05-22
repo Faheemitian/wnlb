@@ -41,13 +41,20 @@ namespace NLBLib
             HttpRequest request = context.Request;            
         }
 
+        
         private void beginRequestHandler(object sender, EventArgs e)
         {
             HttpApplication application = (HttpApplication)sender;
             HttpContext context = application.Context;
             HttpRequest request = context.Request;
+            string requestPath = request.Path;
 
-            Application app = AppRegister.GetApplicationForPath(request.Path);
+            if (request.Path.EndsWith("favicon.ico"))
+            {
+                requestPath = request.UrlReferrer.ToString() + "/favicon.ico";
+            }
+
+            Application app = AppRegister.GetApplicationForPath(requestPath);
             if (app == null)
             {
                 Trace.WriteLine(String.Format("Invalid requeset. No application registered for path {0}", request.Path));

@@ -11,83 +11,119 @@ using System.Web;
 using NLBLib.Misc;
 using System.Web.Management;
 using NLBLib.HealthEvents;
+using System.Net.Sockets;
+using System.Diagnostics;
 
 namespace NLBLib.Routers
 {
     public class IPHashRequestRouter : RequestRouter
     {
-        private List<AppServer> _appServers;
+        private IList<AppServer> _appServers;
         private static int _appServerIndex;
-        private HttpClient _client;
+        private HttpRequestProcessor _requestProcessor;
+        private static readonly object _serverIndexLocker = new object();
 
         public IPHashRequestRouter(List<AppServer> appServers)
         {
-            _appServers = appServers;
+            _appServers = new List<AppServer>(appServers);
             _appServerIndex = 0;
-            _client = new HttpClient();
+            _requestProcessor = new HttpRequestProcessor();
         }
 
         public void RouteRequest(HttpContext requestContext)
         {
             var server = GetNextServer(requestContext);
-            // Check server status and raise event
-            /*
-            if (_appServerIndex % 2 == 0)
-            {
-                EventManager.RaiseServerDownEvent(server, this);
-            }
-            else
-            {
-                EventManager.RaiseServerUpEvent(server, this);
-            }
-             */
-
             ProcessRequest(requestContext, server);
         }
 
         private void ProcessRequest(HttpContext requestContext, AppServer server)
         {
             HttpRequest request = requestContext.Request;
-            HttpMethod method = new HttpMethod(request.HttpMethod);
-            String uriString = String.Format("{0}://{1}:{2}{3}", request.Url.Scheme, server.Host, server.Port, request.Url.PathAndQuery);
-            Uri routedUri = new Uri(uriString);
-            HttpRequestMessage forwardRequest = new HttpRequestMessage(method, routedUri);
-
-            HttpResponseMessage forwardedResponse = _client.SendAsync(forwardRequest, HttpCompletionOption.ResponseHeadersRead).Result;
             HttpResponse response = requestContext.Response;
 
-            foreach (var header in forwardedResponse.Headers)
+            try
             {
-                StringBuilder headerValue = new StringBuilder();
-                foreach (var value in header.Value)
-                {
-                    headerValue.Append(value).Append(";");
-                }
+                _requestProcessor.ProcessSendRequest(server, request, response);
 
-                response.Headers.Add(header.Key, headerValue.ToString());
+            }
+            catch (SocketException)
+            {
+                // server is down
+                server.Status = ServerStatus.DOWN;
+
+                // re-route request
+                RouteRequest(requestContext);
+                return;
+            }
+            catch (Exception ex)
+            {
+                //
+                // If something else is wrong, just forward it
+                //
+                Debug.Write("Failed to process request: " + ex.Message);
+                throw new HttpException(500, "Server Error");
             }
 
-            response.Headers.Add("X-Server", server.Name);
-            var stream = forwardedResponse.Content.ReadAsStreamAsync().Result;
-            stream.CopyTo(response.OutputStream);
-
+            //response.Headers.Add("X-Server", server.Name);
             response.End();
         }
 
         public AppServer GetNextServer(HttpContext requestContext)
         {
-            if (_appServers.IsNullOrEmpty())
+            AppServer nextServer;
+            lock (_serverIndexLocker)
             {
-                throw new InvalidOperationException("No app servers available");
+                // Round-robin depends on shared state _appServerIndex to keep rolling
+                // correctly. Multiple threads will mess up it's values so we have to keep
+                // this block locked.
+                int serverCount = _appServers.Count;
+
+                do
+                {
+                    // this loop get's next server from pool based on rotating index
+                    // and checks if that server is up otherwise moves on to the next entry
+
+                    _appServerIndex = _appServerIndex % _appServers.Count;
+                    nextServer = _appServers[_appServerIndex];
+                    _appServerIndex++;
+                    serverCount--;
+
+                } while (nextServer.IsDown && serverCount > 0);
             }
 
-            _appServerIndex = _appServerIndex % _appServers.Count;
-            var server = _appServers[_appServerIndex];
-            _appServerIndex++;
+            // did loop return a bad server after exhaustion?
+            if (nextServer.IsDown)
+            {
+                throw new HttpException(503, "No backend server available");
+            }
 
-            return server;
+            return nextServer;
         }
 
+        /// <inheritdoc />
+        public void RemoveServer(string serverName)
+        {
+            //
+            // Lock since we are allowing hot edits
+            //
+            lock (_serverIndexLocker)
+            {
+                AppServer theServer = null;
+                foreach (AppServer server in _appServers)
+                {
+                    if (server.Name.Equals(serverName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        theServer = server;
+                        break;
+                    }
+                }
+
+                if (theServer != null)
+                {
+                    _appServers.Remove(theServer);
+                }
+            }
+        }
 
         /// <inheritdoc />
         public IList<AppServer> AppServers

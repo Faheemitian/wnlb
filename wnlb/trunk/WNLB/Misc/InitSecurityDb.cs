@@ -26,6 +26,9 @@ namespace WNLB.Misc
                 membership.CreateUserAndAccount("admin", "admin");
             }
 
+            context.Database.ExecuteSqlCommand("CREATE UNIQUE NONCLUSTERED INDEX [IX_UNIQUE_APP_NAME] ON [dbo].[Application](AppName) WHERE AppName IS NOT NULL");
+            context.Database.ExecuteSqlCommand("CREATE UNIQUE NONCLUSTERED INDEX [IX_UNIQUE_SERVER_NAME] ON [dbo].[Server](ServerName) WHERE ServerName IS NOT NULL");
+
             //context.Servers.Add(new Server() { ServerName = "LocalConfigSrv", ServerHost = "localhost", Port = 5555 });
             //context.Applications.Add(new Application() { AppName = "Config Console", Path = "/_config" });
 

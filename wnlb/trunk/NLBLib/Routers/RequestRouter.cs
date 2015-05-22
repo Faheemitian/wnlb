@@ -30,5 +30,11 @@ namespace NLBLib.Routers
         /// </summary>
         /// <param name="requestContext"></param>
         void RouteRequest(HttpContext requestContext);
+
+        /// <summary>
+        /// Remove given server from app processing
+        /// </summary>
+        /// <param name="serverName">Remove server</param>
+        void RemoveServer(string serverName);
     }
 }

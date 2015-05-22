@@ -51,7 +51,7 @@ namespace NLBLib.Servers
         /// <returns>Returns the server or null.</returns>
         public AppServer GetServerWithName(string name)
         {
-            AppServer server;
+            AppServer server = null;
             _servers.TryGetValue(name, out server);
             return server;
         }

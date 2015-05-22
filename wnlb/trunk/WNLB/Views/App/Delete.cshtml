@@ -45,6 +45,29 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                @Html.LabelFor(model => model.RoutingAlgorithm, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-3">
+                    <span class="form-control">
+                        @Html.DisplayFor(model => model.RoutingAlgorithm)
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Servers, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-3">
+                    <div class="well col-sm-12">
+                        <div class="btn-group-vertical col-sm-12" data-toggle="buttons">
+                            @foreach (var server in Model.Servers)
+                            {
+                                <span class="form-control">@server.ServerName</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">&nbsp;</div>
 
             <div class="form-group">
