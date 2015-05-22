@@ -53,7 +53,7 @@ namespace WNLB.Controllers
             {
                 db.Servers.Add(server);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(server);
@@ -83,7 +83,7 @@ namespace WNLB.Controllers
             {
                 db.Entry(server).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             return View(server);
         }
@@ -111,7 +111,7 @@ namespace WNLB.Controllers
             Server server = db.Servers.Find(id);
             db.Servers.Remove(server);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

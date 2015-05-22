@@ -39,7 +39,9 @@ namespace WNLB.Controllers
 
         public ActionResult Create()
         {
-            return View(new Application());
+            var app = new Application();
+            SetAppServers(app);
+            return View(app);
         }
 
         //
@@ -47,13 +49,23 @@ namespace WNLB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Application application)
+        public ActionResult Create([Bind(Include = "AppName,Path,AppType,RoutingAlgorithm")]Application application, string[] servers)
         {
+            if (servers != null)
+            {
+                application.Servers = new List<Server>();
+                foreach (string server in servers)
+                {
+                    Server serverObj = db.Servers.Find(int.Parse(server));
+                    application.Servers.Add(serverObj);
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Applications.Add(application);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(application);
@@ -69,7 +81,26 @@ namespace WNLB.Controllers
             {
                 return HttpNotFound();
             }
+
+            SetAppServers(application);
             return View(application);
+        }
+
+        private void SetAppServers(Application app)
+        {
+            var servers = db.Servers;
+            var appServers = new HashSet<int>(app.Servers.Select(s => s.ServerId));
+            var viewModel = new List<AppServer>();
+            foreach (var server in servers)
+            {
+                viewModel.Add(new AppServer()
+                {
+                    ServerId = server.ServerId,
+                    ServerName = server.ServerName,
+                    IsSelected = appServers.Contains(server.ServerId)
+                });
+            }
+            ViewBag.Servers = viewModel;
         }
 
         //
@@ -83,7 +114,7 @@ namespace WNLB.Controllers
             {
                 db.Entry(application).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             return View(application);
         }
@@ -111,7 +142,7 @@ namespace WNLB.Controllers
             Application application = db.Applications.Find(id);
             db.Applications.Remove(application);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

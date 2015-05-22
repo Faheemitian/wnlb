@@ -50,6 +50,8 @@ namespace WNLB.Models
         [ScaffoldColumn(false)]
         public bool IsAvailable { get; set; }
 
+        public virtual ICollection<Application> Applications { get; set; }
+
         public Server() { }
     }
 
@@ -79,13 +81,20 @@ namespace WNLB.Models
         [Display(Name = "Algorithm")]
         public RoutingAlgo RoutingAlgorithm { get; set; }
 
-        [ScaffoldColumn(false)]
-        [NotMapped]
-        public IEnumerable<SelectListItem> AppTypes { get; set; }
+        [Required]
+        public virtual ICollection<Server> Servers { get; set; }
 
-        [ScaffoldColumn(false)]
-        [NotMapped]
-        public IEnumerable<SelectListItem> RoutingAlgos { get; set; }
+        public Application()
+        {
+            Servers = new List<Server>();
+        }
+    }
+
+    public class AppServer
+    {
+        public int ServerId { get; set; }
+        public string ServerName { get; set; }
+        public bool IsSelected { get; set; }
     }
 
     [TypeConverter(typeof(EnumToStringConverter))]
