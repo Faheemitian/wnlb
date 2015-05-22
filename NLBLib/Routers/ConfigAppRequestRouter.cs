@@ -52,5 +52,11 @@ namespace NLBLib.Routers
                 throw new NotImplementedException();
             }
         }
+
+
+        public void RemoveServer(string serverName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

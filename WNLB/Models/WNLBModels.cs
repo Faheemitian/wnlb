@@ -100,15 +100,15 @@ namespace WNLB.Models
     [TypeConverter(typeof(EnumToStringConverter))]
     public enum ApplicationType
     {
-        RoundRobin,
-        Wighted,
-        IPHash
+        Static,
+        Dynamic
     }
 
     [TypeConverter(typeof(EnumToStringConverter))]
     public enum RoutingAlgo
     {
-        Static,
-        Dynamic
+        RoundRobin,
+        Wighted,
+        IPHash
     }
 }

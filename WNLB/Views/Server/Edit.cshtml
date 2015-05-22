@@ -12,6 +12,8 @@
     <fieldset>
         <legend>Edit Server</legend>
 
+        @Html.HiddenFor(m => m.ServerId)
+
         <div class="form-group">
             @Html.LabelFor(model => model.ServerName, new { @class = "control-label col-sm-3" })
             <div class="col-sm-9">

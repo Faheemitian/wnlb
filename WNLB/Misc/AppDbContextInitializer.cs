@@ -31,13 +31,12 @@ namespace WNLB.Misc
                 {
                     using (var context = new AppDbContext())
                     {
-                        context.Database.Initialize(true);
+                        context.Database.Initialize(true);                        
                     }
 
                     if (!WebSecurity.Initialized) {
                         WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
                     }
-                    
                 }
                 catch (Exception ex)
                 {

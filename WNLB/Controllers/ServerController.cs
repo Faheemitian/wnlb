@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WNLB.Misc;
 using WNLB.Models;
 
 namespace WNLB.Controllers
@@ -12,6 +14,9 @@ namespace WNLB.Controllers
     public class ServerController : Controller
     {
         private WNLBContext db = new WNLBContext();
+
+        [Dependency("NLBService")]
+        public INLBService NLBService { get; set; }
 
         //
         // GET: /Server/
@@ -53,6 +58,12 @@ namespace WNLB.Controllers
             {
                 db.Servers.Add(server);
                 db.SaveChanges();
+
+                //
+                // Add server to load balancer
+                //
+                NLBService.AddServer(server);
+
                 return RedirectToAction("Index", "Home");
             }
 
@@ -81,8 +92,15 @@ namespace WNLB.Controllers
         {
             if (ModelState.IsValid)
             {
+                Server oldObject = db.Servers.Find(server.ServerId);
                 db.Entry(server).State = EntityState.Modified;
                 db.SaveChanges();
+
+                //
+                // Update the server object in LoadBalancer
+                //
+                NLBService.UpdateServer(oldObject.ServerName, server);
+
                 return RedirectToAction("Index", "Home");
             }
             return View(server);
@@ -111,6 +129,12 @@ namespace WNLB.Controllers
             Server server = db.Servers.Find(id);
             db.Servers.Remove(server);
             db.SaveChanges();
+
+            //
+            // Remove server object from Load balancer
+            // 
+            NLBService.RemoveServer(server.ServerName);
+
             return RedirectToAction("Index", "Home");
         }
 

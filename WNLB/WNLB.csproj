@@ -204,6 +204,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RetryLimitExceededException.cs" />
     <Compile Include="Controllers\ServerController.cs" />
     <Compile Include="Misc\AppDbContextInitializer.cs" />
     <Compile Include="Global.asax.cs">

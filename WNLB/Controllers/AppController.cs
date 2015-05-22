@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WNLB.Misc;
 using WNLB.Models;
 
 namespace WNLB.Controllers
@@ -12,6 +15,9 @@ namespace WNLB.Controllers
     public class AppController : Controller
     {
         private WNLBContext db = new WNLBContext();
+
+        [Dependency("NLBService")]
+        public INLBService NLBService { get; set; }
 
         //
         // GET: /App/
@@ -51,7 +57,7 @@ namespace WNLB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AppName,Path,AppType,RoutingAlgorithm")]Application application, string[] servers)
         {
-            if (servers != null)
+            if (servers != null && servers.Length > 0)
             {
                 application.Servers = new List<Server>();
                 foreach (string server in servers)
@@ -60,14 +66,20 @@ namespace WNLB.Controllers
                     application.Servers.Add(serverObj);
                 }
             }
+            else
+            {
+                ModelState.AddModelError("Servers", "Select at least one server");
+            }
 
             if (ModelState.IsValid)
             {
                 db.Applications.Add(application);
                 db.SaveChanges();
+                NLBService.AddApplication(application);
                 return RedirectToAction("Index", "Home");
             }
 
+            SetAppServers(application);
             return View(application);
         }
 
@@ -100,7 +112,31 @@ namespace WNLB.Controllers
                     IsSelected = appServers.Contains(server.ServerId)
                 });
             }
+
             ViewBag.Servers = viewModel;
+        }
+
+        private void UpdateAppServer(string[] servers, Application app)
+        {
+            var serverSet = new HashSet<string>(servers);
+            var appServers = new HashSet<int>(app.Servers.Select(c => c.ServerId));
+            foreach (var server in db.Servers)
+            {
+                if (serverSet.Contains(server.ServerId.ToString()))
+                {
+                    if (!appServers.Contains(server.ServerId))
+                    {
+                        app.Servers.Add(server);
+                    }
+                }
+                else
+                {
+                    if (appServers.Contains(server.ServerId))
+                    {
+                        app.Servers.Remove(server);
+                    }
+                }
+            }
         }
 
         //
@@ -108,14 +144,48 @@ namespace WNLB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Application application)
+        public ActionResult Edit(int? id, string[] servers)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(application).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            var application = db.Applications
+                       .Include(app => app.Servers)
+                       .Where(app => app.AppId == id)
+                       .Single();
+
+            string oldAppName = application.AppName;
+
+            if (servers == null || servers.Length < 1)
+            {
+                ModelState.AddModelError("Servers", "Select at least one server");
+
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    if (TryUpdateModel(application, "", new string[] { "AppName", "Path", "AppType", "RoutingAlgorithm" }))
+                    {
+                        try
+                        {
+                            UpdateAppServer(servers, application);
+                            db.SaveChanges();
+                            NLBService.UpdateApplication(oldAppName, application);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        catch (RetryLimitExceededException /* dex */)
+                        {
+                            ModelState.AddModelError("", "Unable to save changes.");
+                        }
+
+                    }
+                }
+            }
+            
+            SetAppServers(application);
             return View(application);
         }
 
@@ -124,11 +194,17 @@ namespace WNLB.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Application application = db.Applications.Find(id);
+            var application = db.Applications
+                       .Include(app => app.Servers)
+                       .Where(app => app.AppId == id)
+                       .Single();
+
             if (application == null)
             {
                 return HttpNotFound();
             }
+
+            SetAppServers(application);
             return View(application);
         }
 
@@ -142,6 +218,9 @@ namespace WNLB.Controllers
             Application application = db.Applications.Find(id);
             db.Applications.Remove(application);
             db.SaveChanges();
+
+            NLBService.RemoveApplication(application.AppName);
+
             return RedirectToAction("Index", "Home");
         }
 
