@@ -47,10 +47,10 @@ namespace WNLB.Misc
             //
             // Load servers assigned to the app
             //
-            List<NLBLib.Servers.AppServer> appServes = new List<NLBLib.Servers.AppServer>();
+            List<NLBLib.Servers.AppServer> appServers = new List<NLBLib.Servers.AppServer>();
             foreach (var server in modelApp.Servers)
             {
-                appServes.Add(ServerRegister.GetServerWithName(server.ServerName));
+                appServers.Add(ServerRegister.GetServerWithName(server.ServerName));
             }
 
             //
@@ -62,14 +62,53 @@ namespace WNLB.Misc
                 switch (modelApp.RoutingAlgorithm)
                 {
                     case RoutingAlgo.RoundRobin:
-                        router = new RoundRobinRequestRouter(appServes);
+                        router = new RoundRobinRequestRouter(appServers);
                         break;
-                    case RoutingAlgo.Wighted:
+
+                    case RoutingAlgo.Weighted:
+                        List<int> weightsList = new List<int>();
+                        if (modelApp.DistributeEvenly)
+                        {
+                            for (int i = 0; i < appServers.Count; i++)
+                            {
+                                weightsList.Add(1);
+                            }
+                        }
+                        else
+                        {
+                            //
+                            // compute weights from comma-seperated list
+                            //
+                            string[] weightsStrArray = modelApp.Weights.Split(',');
+                            int weightIndex = 0;
+                            for (int i = 0; i < appServers.Count; i++)
+                            {
+                                try
+                                {
+                                    weightsList.Add(Int32.Parse(weightsStrArray[i]));
+                                }
+                                catch
+                                {
+                                    // in case of error just ignore the extra weight
+                                    weightsList.Add(1);
+                                }
+
+                                weightIndex++;
+
+                                // 
+                                // rotate weightage if weights are less then selected servers
+                                //
+                                weightIndex = weightIndex % weightsStrArray.Length;
+                            }
+                        }
+                        router = new WeightedRequestRouter(appServers, weightsList);
                         break;
+
                     case RoutingAlgo.IPHash:
                         break;
+
                     default:
-                        router = new RoundRobinRequestRouter(appServes);
+                        router = new RoundRobinRequestRouter(appServers);
                         break;
                 }
 
