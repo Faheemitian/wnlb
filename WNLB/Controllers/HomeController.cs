@@ -25,6 +25,15 @@ namespace WNLB.Controllers
             var servers = db.Servers;
             var serverList = servers.ToList();
 
+            foreach (var dbServer in serverList)
+            {
+                var serviceServer = NLBService.ServerRegister.GetServerWithName(dbServer.ServerName);
+                if(serviceServer != null)
+                {
+                    dbServer.Status = serviceServer.Status.ToString();
+                }
+            }
+
             return View(Tuple.Create<IEnumerable<Application>, IEnumerable<Server>>(appsList, serverList));
         }
 

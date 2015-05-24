@@ -7,7 +7,7 @@ namespace NLBLib.Servers
 {
     public enum ServerStatus
     {
-        UKNOWN,
+        UNKNOWN,
         AVAILABLE,
         SWAMPED,
         DOWN

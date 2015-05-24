@@ -25,13 +25,15 @@ namespace NLBLib.Routers
 
         public ConfigAppRequestRouter()
         {
+            /* do nothing */
         }
 
         /// <summary>
         /// Returns context without processing
         /// </summary>
         public void RouteRequest(HttpContext requestContext)
-        {            
+        {
+            /* do nothing */
         }
 
         /// <summary>
@@ -49,14 +51,14 @@ namespace NLBLib.Routers
         {
             get
             {
-                throw new NotImplementedException();
+                return new List<AppServer>();
             }
         }
 
 
         public void RemoveServer(string serverName)
         {
-            throw new NotImplementedException();
+            /* do nothing */
         }
     }
 }

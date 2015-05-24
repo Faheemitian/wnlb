@@ -49,11 +49,6 @@ namespace NLBLib
             HttpRequest request = context.Request;
             string requestPath = request.Path;
 
-            if (request.Path.EndsWith("favicon.ico"))
-            {
-                requestPath = request.UrlReferrer.ToString() + "/favicon.ico";
-            }
-
             Application app = AppRegister.GetApplicationForPath(requestPath);
             if (app == null)
             {

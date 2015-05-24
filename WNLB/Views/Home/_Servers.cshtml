@@ -20,6 +20,9 @@
             <table class="table">
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.ServerName)
                     </th>
                     <th>
@@ -28,15 +31,15 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Port)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.IsAvailable)
-                    </th>
                     <th></th>
                 </tr>
 
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ServerName)
                         </td>
@@ -59,9 +62,7 @@
                                 @Html.DisplayFor(modelItem => item.Port)
                             }
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IsAvailable)
-                        </td>
+                        
                         @if (!item.ServerName.Equals("LocalConfigSrv"))
                         { 
                         <td>

@@ -48,7 +48,9 @@ namespace WNLB.Models
 
         [NotMapped]
         [ScaffoldColumn(false)]
-        public bool IsAvailable { get; set; }
+        [Display(Name="Status")]
+        [UIHint("Status")]
+        public string Status { get; set; }
 
         public virtual ICollection<Application> Applications { get; set; }
 
@@ -56,7 +58,7 @@ namespace WNLB.Models
     }
 
     [Table("Application")]
-    public class Application
+    public class Application : IValidatableObject
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -81,12 +83,27 @@ namespace WNLB.Models
         [Display(Name = "Algorithm")]
         public RoutingAlgo RoutingAlgorithm { get; set; }
 
+        [Display(Name = "Distribute requests evenly amongst servers")]
+        public bool DistributeEvenly { get; set; }
+
+        [Display(Name = "Server Weights", Description="A comma seperate list of requests ratios per server")]
+        [RegularExpression("^([1-9]+[0-9]*)$|^(([1-9]+[0-9]*,)+([1-9]+[0-9]*)+$)", ErrorMessage = "Please enter a list of comma seperated numbers")]
+        public string Weights { get; set; }
+
         [Required]
         public virtual ICollection<Server> Servers { get; set; }
 
         public Application()
         {
             Servers = new List<Server>();
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (RoutingAlgorithm == RoutingAlgo.Weighted && DistributeEvenly == false && (Weights == null || Weights.Length == 0))
+            {
+                yield return new ValidationResult("Specify weights for server or select even distribution", new [] { "Weights" });
+            }
         }
     }
 
@@ -108,7 +125,7 @@ namespace WNLB.Models
     public enum RoutingAlgo
     {
         RoundRobin,
-        Wighted,
+        Weighted,
         IPHash
     }
 }

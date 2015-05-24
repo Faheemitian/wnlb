@@ -31,7 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Collections.Immutable">
+    <Reference Include="System.Collections.Immutable, Version=1.1.36.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Collections.Immutable.1.1.36\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
@@ -59,6 +60,7 @@
     <Compile Include="Routers\RequestRouter.cs" />
     <Compile Include="Routers\IPHashRequestRouter.cs" />
     <Compile Include="Routers\ConfigAppRequestRouter.cs" />
+    <Compile Include="Routers\WeightedRequestRouter.cs" />
     <Compile Include="Routers\RoundRobinRequestRouter.cs" />
     <Compile Include="Servers\AppServer.cs" />
     <Compile Include="Servers\LocalAppServer.cs" />

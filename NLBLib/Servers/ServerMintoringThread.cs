@@ -77,11 +77,9 @@ namespace NLBLib.Servers
         {
             try
             {
-                AppServer[] serverList = _serverRegister.Servers.ToArray<AppServer>();
-
                 do
                 {
-                    foreach (var server in serverList)
+                    foreach (var server in _serverRegister.Servers)
                     {
                         if (!(server is LocalAppServer) && isDown(server))
                         {

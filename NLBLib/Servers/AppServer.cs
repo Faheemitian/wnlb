@@ -22,7 +22,7 @@ namespace NLBLib.Servers
             _host = host;
             _port = port;
             _since = DateTime.Now;
-            _status = ServerStatus.UKNOWN;
+            _status = ServerStatus.UNKNOWN;
         }
 
         public int Port

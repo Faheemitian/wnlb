@@ -1,0 +1,14 @@
+﻿@model string
+
+@if (Model.Equals("UNKNOWN", StringComparison.OrdinalIgnoreCase))
+{
+    <img src="@Url.Content("~/_configResources/Images/gray.png")" alt="Detecting" />
+}
+else if (Model.Equals("DOWN", StringComparison.OrdinalIgnoreCase))
+{
+    <img src="@Url.Content("~/_configResources/Images/red.png")" alt="Down" />
+}
+else
+{
+    <img src="@Url.Content("~/_configResources/Images/green.png")" alt="Available" />
+}

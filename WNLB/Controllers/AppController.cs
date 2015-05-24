@@ -47,6 +47,7 @@ namespace WNLB.Controllers
         {
             var app = new Application();
             SetAppServers(app);
+            app.DistributeEvenly = true;
             return View(app);
         }
 
@@ -55,7 +56,7 @@ namespace WNLB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AppName,Path,AppType,RoutingAlgorithm")]Application application, string[] servers)
+        public ActionResult Create([Bind(Include = "AppName,Path,AppType,RoutingAlgorithm,DistributeEvenly,Weights")]Application application, string[] servers)
         {
             if (servers != null && servers.Length > 0)
             {
@@ -73,6 +74,11 @@ namespace WNLB.Controllers
 
             if (ModelState.IsValid)
             {
+                if (application.RoutingAlgorithm == RoutingAlgo.Weighted && application.Servers.Count == 1)
+                {
+                    application.DistributeEvenly = true;
+                }
+
                 db.Applications.Add(application);
                 db.SaveChanges();
                 NLBService.AddApplication(application);
@@ -167,16 +173,22 @@ namespace WNLB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (TryUpdateModel(application, "", new string[] { "AppName", "Path", "AppType", "RoutingAlgorithm" }))
+                    if (TryUpdateModel(application, "", new string[] { "AppName", "Path", "AppType", "RoutingAlgorithm", "DistributeEvenly", "Weights" }))
                     {
                         try
                         {
                             UpdateAppServer(servers, application);
+
+                            if (application.RoutingAlgorithm == RoutingAlgo.Weighted && application.Servers.Count == 1)
+                            {
+                                application.DistributeEvenly = true;
+                            }
+
                             db.SaveChanges();
                             NLBService.UpdateApplication(oldAppName, application);
                             return RedirectToAction("Index", "Home");
                         }
-                        catch (RetryLimitExceededException /* dex */)
+                        catch (Exception /* dex */)
                         {
                             ModelState.AddModelError("", "Unable to save changes.");
                         }
