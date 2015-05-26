@@ -31,13 +31,16 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Port)
                     </th>
+                    <th>
+                        Activity
+                    </th>
                     <th></th>
                 </tr>
 
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
+                        <td id="@item.ServerName-status">
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
                         <td>
@@ -61,6 +64,9 @@
                             {
                                 @Html.DisplayFor(modelItem => item.Port)
                             }
+                        </td>
+                        <td id="@item.ServerName-activity">
+                            
                         </td>
                         
                         @if (!item.ServerName.Equals("LocalConfigSrv"))

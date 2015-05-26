@@ -242,19 +242,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="_configResources\Images\accent.png" />
-    <Content Include="_configResources\Images\bullet.png" />
-    <Content Include="_configResources\Images\heroAccent.png" />
-    <Content Include="_configResources\Images\orderedList0.png" />
-    <Content Include="_configResources\Images\orderedList1.png" />
-    <Content Include="_configResources\Images\orderedList2.png" />
-    <Content Include="_configResources\Images\orderedList3.png" />
-    <Content Include="_configResources\Images\orderedList4.png" />
-    <Content Include="_configResources\Images\orderedList5.png" />
-    <Content Include="_configResources\Images\orderedList6.png" />
-    <Content Include="_configResources\Images\orderedList7.png" />
-    <Content Include="_configResources\Images\orderedList8.png" />
-    <Content Include="_configResources\Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
