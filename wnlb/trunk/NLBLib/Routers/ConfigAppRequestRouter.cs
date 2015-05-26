@@ -23,7 +23,7 @@ namespace NLBLib.Routers
     public class ConfigAppRequestRouter : RequestRouter
     {
 
-        public ConfigAppRequestRouter()
+        public ConfigAppRequestRouter() : base(new List<AppServer>())
         {
             /* do nothing */
         }
@@ -31,7 +31,7 @@ namespace NLBLib.Routers
         /// <summary>
         /// Returns context without processing
         /// </summary>
-        public void RouteRequest(HttpContext requestContext)
+        override public void RouteRequest(HttpContext requestContext)
         {
             /* do nothing */
         }
@@ -39,26 +39,9 @@ namespace NLBLib.Routers
         /// <summary>
         /// Throws NotImplementedException
         /// </summary>
-        public AppServer GetNextServer(HttpContext requestContext)
+        override public AppServer GetNextServer(HttpContext requestContext)
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Throws NotImplementedException
-        /// </summary>
-        public IList<AppServer> AppServers
-        {
-            get
-            {
-                return new List<AppServer>();
-            }
-        }
-
-
-        public void RemoveServer(string serverName)
-        {
-            /* do nothing */
         }
     }
 }

@@ -61,11 +61,7 @@ namespace WNLB.Misc
                 RequestRouter router = null;
                 switch (modelApp.RoutingAlgorithm)
                 {
-                    case RoutingAlgo.RoundRobin:
-                        router = new RoundRobinRequestRouter(appServers);
-                        break;
-
-                    case RoutingAlgo.Weighted:
+                   case RoutingAlgo.Weighted:
                         List<int> weightsList = new List<int>();
                         if (modelApp.DistributeEvenly)
                         {
@@ -105,8 +101,14 @@ namespace WNLB.Misc
                         break;
 
                     case RoutingAlgo.IPHash:
+                        router = new IPHashRequestRouter(appServers);
                         break;
 
+                    case RoutingAlgo.CookieBased:
+                        router = new CookieBasedRequestRouter(appServers);
+                        break;
+
+                    case RoutingAlgo.RoundRobin:
                     default:
                         router = new RoundRobinRequestRouter(appServers);
                         break;

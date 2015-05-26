@@ -13,124 +13,131 @@ using System.Web.Management;
 using NLBLib.HealthEvents;
 using System.Net.Sockets;
 using System.Diagnostics;
+using System.Collections.Immutable;
+using System.Threading;
 
 namespace NLBLib.Routers
 {
     public class IPHashRequestRouter : RequestRouter
     {
-        private IList<AppServer> _appServers;
-        private static int _appServerIndex;
-        private HttpRequestProcessor _requestProcessor;
-        private static readonly object _serverIndexLocker = new object();
-
+        ConsistentHash<AppServer> _appServerMap = new ConsistentHash<AppServer>();
+        private const int _serverDownTimeout = 10; // secs
+        private ImmutableList<DelistedServer> _delistedServers = ImmutableList<DelistedServer>.Empty;
+        
         public IPHashRequestRouter(List<AppServer> appServers)
+            : base(appServers)
         {
-            _appServers = new List<AppServer>(appServers);
-            _appServerIndex = 0;
-            _requestProcessor = new HttpRequestProcessor();
+            foreach(var server in appServers) {
+                _appServerMap.Add(server);
+            }
         }
 
-        public void RouteRequest(HttpContext requestContext)
+        override public void RouteRequest(HttpContext requestContext)
         {
-            var server = GetNextServer(requestContext);
+            var server = GetNextServer(requestContext);            
             ProcessRequest(requestContext, server);
         }
 
-        private void ProcessRequest(HttpContext requestContext, AppServer server)
+        override public AppServer GetNextServer(HttpContext requestContext)
         {
             HttpRequest request = requestContext.Request;
-            HttpResponse response = requestContext.Response;
+            string address = GetIPAddress(request);
+            AppServer server = null;
+            int serverCount = AppServers.Count();
 
-            try
+            CheckDelistedServers();
+            
+            if (address != null)
             {
-                _requestProcessor.ProcessSendRequest(server, request, response);
-
-            }
-            catch (SocketException)
-            {
-                // server is down
-                server.Status = ServerStatus.DOWN;
-
-                // re-route request
-                RouteRequest(requestContext);
-                return;
-            }
-            catch (Exception ex)
-            {
-                //
-                // If something else is wrong, just forward it
-                //
-                Debug.Write("Failed to process request: " + ex.Message);
-                throw new HttpException(500, "Server Error");
-            }
-
-            //response.Headers.Add("X-Server", server.Name);
-            response.End();
-        }
-
-        public AppServer GetNextServer(HttpContext requestContext)
-        {
-            AppServer nextServer;
-            lock (_serverIndexLocker)
-            {
-                // Round-robin depends on shared state _appServerIndex to keep rolling
-                // correctly. Multiple threads will mess up it's values so we have to keep
-                // this block locked.
-                int serverCount = _appServers.Count;
-
                 do
                 {
-                    // this loop get's next server from pool based on rotating index
-                    // and checks if that server is up otherwise moves on to the next entry
-
-                    _appServerIndex = _appServerIndex % _appServers.Count;
-                    nextServer = _appServers[_appServerIndex];
-                    _appServerIndex++;
-                    serverCount--;
-
-                } while (nextServer.IsDown && serverCount > 0);
+                    server = _appServerMap.GetNode(address);
+                    if (server.IsDown)
+                    {
+                        //
+                        // Rehash circle mapping 
+                        //
+                        _appServerMap.Remove(server);
+                        serverCount--;
+                        _delistedServers = _delistedServers.Add(new DelistedServer(server, DateTime.Now));
+                    }
+                } while (server.IsDown && serverCount > 0);
             }
 
-            // did loop return a bad server after exhaustion?
-            if (nextServer.IsDown)
+            //
+            // Make sure server is available or we run out of list
+            //
+
+            if (server.IsDown)
             {
                 throw new HttpException(503, "No backend server available");
             }
 
-            return nextServer;
+            return server;
         }
 
-        /// <inheritdoc />
-        public void RemoveServer(string serverName)
+        public override AppServer RemoveServer(string serverName)
+        {
+            AppServer server = base.RemoveServer(serverName);
+            if (server != null)
+            {
+                _appServerMap.Remove(server);
+            }
+
+            return server;
+        }
+
+        //
+        // Checks if any delisted servers have come back up
+        //
+        private void CheckDelistedServers()
         {
             //
-            // Lock since we are allowing hot edits
+            // Do not block if another thread is already looking
             //
-            lock (_serverIndexLocker)
+            if (Monitor.TryEnter(_delistedServers))
             {
-                AppServer theServer = null;
-                foreach (AppServer server in _appServers)
+                try
                 {
-                    if (server.Name.Equals(serverName, StringComparison.OrdinalIgnoreCase))
+                    foreach (var entry in _delistedServers)
                     {
-                        theServer = server;
-                        break;
+                        if (DateTime.Now >= entry.Time.AddSeconds(_serverDownTimeout) && entry.Server.IsAvailable)
+                        {
+                            _appServerMap.Add(entry.Server);
+                            _delistedServers = _delistedServers.Remove(entry);
+                        }
                     }
                 }
-
-                if (theServer != null)
+                finally
                 {
-                    _appServers.Remove(theServer);
+                    Monitor.Exit(_delistedServers);
                 }
             }
         }
 
-        /// <inheritdoc />
-        public IList<AppServer> AppServers
+        private string GetIPAddress(HttpRequest request)
         {
-            get
+            string ipAddress = request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            if (!string.IsNullOrEmpty(ipAddress))
             {
-                return new ReadOnlyCollection<AppServer>(_appServers);
+                string[] addresses = ipAddress.Split(',');
+                if (addresses.Length != 0)
+                {
+                    return addresses[0];
+                }
+            }
+
+            return request.ServerVariables["REMOTE_ADDR"];
+        }
+
+        class DelistedServer
+        {
+            internal AppServer Server { get; set; }
+            internal DateTime Time { get; set; }
+            internal DelistedServer(AppServer server, DateTime time) {
+                Server = server;
+                Time = time;
             }
         }
     }

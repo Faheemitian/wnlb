@@ -20,7 +20,7 @@ namespace NLBLib.Applications
         /// <summary>
         /// Gets application starting path. / is a valid path for root application.
         /// </summary>
-        String AppPath { get; }
+        String AppPath { get; } 
 
         /// <summary>
         /// Gets the router of application.
