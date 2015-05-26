@@ -126,6 +126,7 @@ namespace WNLB.Models
     {
         RoundRobin,
         Weighted,
-        IPHash
+        IPHash,
+        CookieBased
     }
 }

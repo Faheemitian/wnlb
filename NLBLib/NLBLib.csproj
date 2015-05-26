@@ -55,8 +55,11 @@
     <Compile Include="HealthEvents\ErrorEvent.cs" />
     <Compile Include="LoadBalancerModule.cs" />
     <Compile Include="Misc\CaseInsensitiveStringComparer.cs" />
+    <Compile Include="Misc\ConsistentHash.cs" />
     <Compile Include="Misc\HttpRequestProcesser.cs" />
+    <Compile Include="Misc\MurmurHash2UInt32Hack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routers\CookieBasedRequestRouter.cs" />
     <Compile Include="Routers\RequestRouter.cs" />
     <Compile Include="Routers\IPHashRequestRouter.cs" />
     <Compile Include="Routers\ConfigAppRequestRouter.cs" />

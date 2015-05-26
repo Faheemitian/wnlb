@@ -12,7 +12,7 @@ namespace NLBLib.Servers
         private readonly string _host;
         private readonly int _port;
 
-        private DateTime _since;
+        private DateTime _startTime;
         private ServerStatus _status;
         private readonly object _statusLock = new object();
 
@@ -21,7 +21,6 @@ namespace NLBLib.Servers
             _name = name;
             _host = host;
             _port = port;
-            _since = DateTime.Now;
             _status = ServerStatus.UNKNOWN;
         }
 
@@ -55,9 +54,12 @@ namespace NLBLib.Servers
             get { return Status == ServerStatus.SWAMPED; }
         }
 
-        public int StatusSince
+        public DateTime AvailableSince
         {
-            get { return DateTime.Now.Millisecond - _since.Millisecond; }
+            get
+            {
+                return _startTime;
+            }
         }
 
         public ServerStatus Status
@@ -76,17 +78,22 @@ namespace NLBLib.Servers
                     if (_status != value && value == ServerStatus.DOWN)
                     {
                         HealthEvents.EventManager.RaiseServerDownEvent(this, null);
-                        _since = DateTime.Now;
+                        _startTime = DateTime.MinValue;
                     }
                     else if (_status != value && value == ServerStatus.AVAILABLE)
                     {
                         HealthEvents.EventManager.RaiseServerUpEvent(this, null);
-                        _since = DateTime.Now;
+                        _startTime = DateTime.Now;
                     }
 
                     _status = value;
                 }
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return (_name + _host + _port).GetHashCode();
         }
     }
 }

@@ -72,6 +72,9 @@ namespace NLBLib.Misc
         {
             try
             {
+                //
+                // TODO: see if we can bind and get on socket instead
+                //
                 _client.Timeout = TimeSpan.FromSeconds(30);
                 HttpResponseMessage response = _client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).Result;
 
