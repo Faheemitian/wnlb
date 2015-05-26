@@ -12,3 +12,53 @@
 <div class="row">&nbsp;</div>
 
 @Html.Partial("_Apps", @Model.Item1)
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+    $(document).ready(function () {
+        setInterval(function () { getStats(); }, 10000);
+    });
+
+    function getStats() {
+        var feedback = $.ajax({
+            type: "Get",
+            url: "@Url.Action("GetStats", "Home")",
+            dataType: "json",
+            async: false
+        }).success(function (stats) {
+            $.each(stats, function (index, server) {
+                setServerStatus(server.Name, server.Status);
+                setServerActivity(server.Name, server.HitsPerMin);
+                console.log(server.Name);
+            });
+        });
+    }
+
+    function setServerActivity(name, lastMinHits) {
+        var obj = $("#" + name + "-activity");
+        if (obj.length > 0) {
+            obj.text(lastMinHits);
+        }
+    }
+
+    function setServerStatus(name, status) {
+        var obj = $("#" + name + "-status");
+        if (obj.length > 0) {
+            var img = obj.children("img:first");
+            if (img.length > 0) {
+                var src = img.attr("src");
+                if (status === "DOWN" && src.indexOf("red.png") < 0) {
+                    obj.children("img:first").attr("src", "@Url.Content("~/_configResources/Images/red.png")");
+
+                } else if (status == "AVAILABLE" && src.indexOf("green.png") < 0) {
+                    obj.children("img:first").attr("src", "@Url.Content("~/_configResources/Images/green.png")");
+
+                } else if (status == "UNKNOWN" && src.indexOf("gray.png") < 0) {
+                    obj.children("img:first").attr("src", "@Url.Content("~/_configResources/Images/gray.png")");
+                }
+            }
+        }
+    }
+</script>
+}

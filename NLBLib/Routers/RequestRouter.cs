@@ -17,13 +17,12 @@ namespace NLBLib.Routers
     /// </summary>
     public abstract class RequestRouter
     {
-        private ImmutableList<AppServer> _appServers;
-        private HttpRequestProcessor _requestProcessor;
+        ImmutableList<AppServer> _appServers;
+        HttpRequestProcessor _requestProcessor = new HttpRequestProcessor();
 
         public RequestRouter(List<AppServer> servers)
         {
             _appServers = ImmutableList.Create<AppServer>(servers.ToArray());
-            _requestProcessor = new HttpRequestProcessor();
         }
 
         /// <summary>
@@ -78,6 +77,7 @@ namespace NLBLib.Routers
         {
             HttpRequest request = requestContext.Request;
             HttpResponse response = requestContext.Response;
+            server.HitCounter.RecordHit();
 
             try
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLBLib.Misc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace NLBLib.Servers
         private DateTime _startTime;
         private ServerStatus _status;
         private readonly object _statusLock = new object();
+        private HitCounter _hitCounter = new HitCounter();
 
         public AppServer(string name, string host, int port)
         {
@@ -88,6 +90,13 @@ namespace NLBLib.Servers
 
                     _status = value;
                 }
+            }
+        }
+
+        public HitCounter HitCounter {
+            get
+            {
+                return _hitCounter;
             }
         }
 

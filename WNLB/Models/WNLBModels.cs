@@ -107,6 +107,13 @@ namespace WNLB.Models
         }
     }
 
+    public class ServerStats
+    {
+        public string Name { get; set; }
+        public string Status { get; set; }
+        public int[] HitsPerMin { get; set; }
+    }
+
     public class AppServer
     {
         public int ServerId { get; set; }
