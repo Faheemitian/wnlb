@@ -92,7 +92,7 @@ namespace NLBLib.Servers
                         }
                     }
 
-                    Thread.Sleep(TimeSpan.FromMinutes(1));
+                    Thread.Sleep(TimeSpan.FromSeconds(30));
 
                 } while (true);
 
