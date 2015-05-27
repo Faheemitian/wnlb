@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
@@ -72,11 +73,34 @@ namespace NLBLib.Misc
         {
             try
             {
-                //
-                // TODO: see if we can bind and get on socket instead
-                //
-                _client.Timeout = TimeSpan.FromSeconds(30);
-                HttpResponseMessage response = _client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).Result;
+                string hostname = url.Host;
+                int port = url.Port;
+                IPAddress[] hostIPs = Dns.GetHostAddresses(hostname);
+
+                if (hostIPs.Length > 0)
+                {
+                    IPAddress lastAddress = hostIPs[hostIPs.Length - 1];
+                    IPEndPoint hostep = new IPEndPoint(lastAddress, port);
+                    Socket sock = new Socket(lastAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+                    sock.ReceiveTimeout = 30;
+                    sock.SendTimeout = 30;
+
+                    sock.Connect(hostep);
+
+                    var request = String.Format("GET {0} HTTP/1.1\r\nHost: {1}\r\nContent-Length: 0\r\n\r\n", url.PathAndQuery, hostname);
+                    sock.Send(Encoding.UTF8.GetBytes(request));
+
+                    byte[] response = new byte[20];
+                    int bytes = sock.Receive(response, SocketFlags.None);
+                    sock.Close();
+
+                    string responseStr = Encoding.UTF8.GetString(response);
+                    if (responseStr.StartsWith("HTTP"))
+                    {
+                        return true;
+                    }
+                }
 
                 return true;
             }
