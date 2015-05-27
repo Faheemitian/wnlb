@@ -65,8 +65,39 @@
                                 @Html.DisplayFor(modelItem => item.Port)
                             }
                         </td>
-                        <td id="@item.ServerName-activity">
-                            
+                        <td id="@item.ServerName-activity" class="chart">
+                            <div class="b_chart">
+                                <div class="b_chart_col">
+                                    <span id="@item.ServerName-bar-1" class="bar"></span>
+                                </div>
+                                <div class="b_chart_col">
+                                    <span id="@item.ServerName-bar-2" class="bar"></span>
+                                </div>
+                                <div class="b_chart_col">
+                                    <span id="@item.ServerName-bar-3" class="bar"></span>
+                                </div>
+                                <div class="b_chart_col">
+                                    <span id="@item.ServerName-bar-4" class="bar"></span>
+                                </div>
+                                <div class="b_chart_col">
+                                    <span id="@item.ServerName-bar-5" class="bar"></span>
+                                </div>
+                                <div class="b_chart_col">
+                                    <span id="@item.ServerName-bar-6" class="bar"></span>
+                                </div>
+                                <div class="b_chart_col">
+                                    <span id="@item.ServerName-bar-7" class="bar"></span>
+                                </div>
+                                <div class="b_chart_col">
+                                    <span id="@item.ServerName-bar-8" class="bar"></span>
+                                </div>
+                                <div class="b_chart_col">
+                                    <span id="@item.ServerName-bar-9" class="bar"></span>
+                                </div>
+                                <div class="b_chart_col">
+                                    <span id="@item.ServerName-bar-10" class="bar"></span>
+                                </div>
+                            </div>
                         </td>
                         
                         @if (!item.ServerName.Equals("LocalConfigSrv"))

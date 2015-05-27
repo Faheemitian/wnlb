@@ -56,6 +56,7 @@
     <Compile Include="LoadBalancerModule.cs" />
     <Compile Include="Misc\CaseInsensitiveStringComparer.cs" />
     <Compile Include="Misc\ConsistentHash.cs" />
+    <Compile Include="Misc\HitCompCounter.cs" />
     <Compile Include="Misc\HitCounter.cs" />
     <Compile Include="Misc\HttpRequestProcesser.cs" />
     <Compile Include="Misc\MurmurHash2UInt32Hack.cs" />

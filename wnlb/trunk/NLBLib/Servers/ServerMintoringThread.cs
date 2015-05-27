@@ -88,6 +88,7 @@ namespace NLBLib.Servers
                         else
                         {
                             server.Status = ServerStatus.AVAILABLE;
+                            server.HitCounter.CalculateHits(); // prepare hits for display, add filler 0s if req
                         }
                     }
 

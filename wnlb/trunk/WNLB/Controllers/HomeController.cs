@@ -38,23 +38,6 @@ namespace WNLB.Controllers
             return View(Tuple.Create<IEnumerable<Application>, IEnumerable<Server>>(appsList, serverList));
         }
 
-        [HttpGet]
-        public ActionResult GetStats()
-        {
-            List<ServerStats> stats = new List<ServerStats>();
-            foreach (var appServer in NLBService.ServerRegister.Servers)
-            {
-                ServerStats stat = new ServerStats();
-                stat.Name = appServer.Name;
-                stat.Status = appServer.Status.ToString();
-                stat.HitsPerMin = appServer.HitCounter.LastMinHits;
-
-                stats.Add(stat);
-            }
-
-            return Json(stats.ToArray(), JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult About()
         {
             return View();
