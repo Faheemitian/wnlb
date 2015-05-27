@@ -1,0 +1,76 @@
+﻿@model IList<WNLB.Models.ServerStats>
+@{
+    ViewBag.Title = "DetailedStats";
+}
+
+<h4>Server Traffic Details</h4>
+
+<br />
+
+@foreach (var server in Model)
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @Html.Partial("~/Views/Shared/DisplayTemplates/Status.cshtml", server.Status) &nbsp; <strong>@server.Name</strong>
+                </div>
+
+                <table class="table">
+                    <tr>
+                        <td>
+                            <strong>Last Few Minutes</strong>
+                            <br />
+                            <img id="@server.Name" class="chart-image refresh" src="@Url.Action("LastMinHitsChart")?serverName=@server.Name" />
+                        </td>
+                        <td>
+                            <strong>Last Hour</strong>
+                            <br />
+                            <img id="@server.Name" class="chart-image" src="@Url.Action("LastHourHitsChart")?serverName=@server.Name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Last Day</strong>
+                            <br />
+                            <img id="@server.Name" class="chart-image" src="@Url.Action("LastDayHitsChart")?serverName=@server.Name" />
+                        </td>
+                        <td>
+                            <strong>Last Week</strong>
+                            <br />
+                            <img id="@server.Name" class="chart-image" src="@Url.Action("LastWeekHitsChart")?serverName=@server.Name" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        var refreshIntervalId;
+
+        $(document).ready(function () {
+            refreshIntervalId = setInterval(function () { updateCharts(); }, 5000);
+        });
+
+        function updateCharts() {
+            var chartImages = $(".chart-image.refresh");
+            $.each(chartImages, function (i, chart) {
+                var imgSrc = $(chart).attr("src");
+                var newSrc = "";
+
+                if (imgSrc.indexOf("&t=") > -1) {
+                    newSrc = imgSrc.substring(0, imgSrc.indexOf("&t="));
+
+                } else {
+                    newSrc = imgSrc;
+                }
+
+                newSrc += "&t=" + new Date().getTime();
+                $(chart).attr("src", newSrc);
+            });
+        }
+</script>
+}

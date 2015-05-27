@@ -11,15 +11,39 @@ namespace NLBLib.Misc
         readonly object _counterLock = new object();
         DateTime _lastRecordingTime = DateTime.Now;
         HitCompCounter _lastMinCounter = HitCompCounter.WithSecs(5, 50);
-        HitCompCounter _lastHourCouter = HitCompCounter.WithMins(1, 60);
-        HitCompCounter _lastDayCouter = HitCompCounter.WithHours(0.5f, 48);
-        HitCompCounter _lastWeekCouter = HitCompCounter.WithDays(0.25f, 56);
+        HitCompCounter _lastHourCounter = HitCompCounter.WithMins(1, 60);
+        HitCompCounter _lastDayCounter = HitCompCounter.WithHours(0.5f, 48);
+        HitCompCounter _lastWeekCounter = HitCompCounter.WithDays(0.25f, 56);
 
         public List<int> LastMinHits
         {
             get
             {
                 return _lastMinCounter.RecordedHits;
+            }
+        }
+
+        public List<int> LastHourHits
+        {
+            get
+            {
+                return _lastHourCounter.RecordedHits;
+            }
+        }
+
+        public List<int> LastDayHits
+        {
+            get
+            {
+                return _lastDayCounter.RecordedHits;
+            }
+        }
+
+        public List<int> LastWeekHits
+        {
+            get
+            {
+                return _lastWeekCounter.RecordedHits;
             }
         }
 
@@ -36,9 +60,9 @@ namespace NLBLib.Misc
             lock (_counterLock)
             {
                 _lastMinCounter.RecordHit();
-                _lastHourCouter.RecordHit();
-                _lastDayCouter.RecordHit();
-                _lastWeekCouter.RecordHit();
+                _lastHourCounter.RecordHit();
+                _lastDayCounter.RecordHit();
+                _lastWeekCounter.RecordHit();
                 _lastRecordingTime = DateTime.Now;
             }
         }
@@ -48,9 +72,9 @@ namespace NLBLib.Misc
             lock (_counterLock)
             {
                 _lastMinCounter.CalculateHits();
-                _lastHourCouter.CalculateHits();
-                _lastDayCouter.CalculateHits();
-                _lastWeekCouter.CalculateHits();
+                _lastHourCounter.CalculateHits();
+                _lastDayCounter.CalculateHits();
+                _lastWeekCounter.CalculateHits();
                 _lastRecordingTime = DateTime.Now;
             }
         }

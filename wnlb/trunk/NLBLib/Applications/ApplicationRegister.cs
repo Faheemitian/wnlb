@@ -80,6 +80,24 @@ namespace NLBLib.Applications
 
             return null;
         }
+
+        /// <summary>
+        /// Gets registered application by checking name against registered apps. 
+        /// </summary>
+        /// <param name="name">Name of app</param>
+        /// <returns>Registered app object or null</returns>
+        public Application GetApplicationWithName(String name)
+        {
+            foreach (var value in _applications)
+            {
+                if (name.Equals(value.AppName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return value;
+                }
+            }
+
+            return null;
+        }
     }
 
 

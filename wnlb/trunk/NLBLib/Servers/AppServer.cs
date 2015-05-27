@@ -12,20 +12,29 @@ namespace NLBLib.Servers
         private readonly string _name;
         private readonly string _host;
         private readonly int _port;
+        private readonly Boolean _isConfig;
 
         private DateTime _startTime;
         private ServerStatus _status;
         private readonly object _statusLock = new object();
         private HitCounter _hitCounter = new HitCounter();
 
-        public AppServer(string name, string host, int port)
+        public AppServer(string name, string host, int port, bool isConfig = false)
         {
             _name = name;
             _host = host;
             _port = port;
+            _isConfig = isConfig;
             _status = ServerStatus.UNKNOWN;
         }
 
+        public bool IsConfig
+        {
+            get
+            {
+                return _isConfig;
+            }
+        }
         public int Port
         {
             get { return _port; }

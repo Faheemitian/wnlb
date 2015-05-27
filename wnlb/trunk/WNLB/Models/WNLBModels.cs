@@ -83,7 +83,7 @@ namespace WNLB.Models
         [Display(Name = "Algorithm")]
         public RoutingAlgo RoutingAlgorithm { get; set; }
 
-        [Display(Name = "Distribute requests evenly amongst servers")]
+        [Display(Name = "Distribute requests evenly")]
         public bool DistributeEvenly { get; set; }
 
         [Display(Name = "Server Weights", Description="A comma seperate list of requests ratios per server")]
@@ -112,6 +112,17 @@ namespace WNLB.Models
         public string Name { get; set; }
         public string Status { get; set; }
         public int[] HitsPerMin { get; set; }
+    }
+
+    public class AllServerStats
+    {
+        public string Name { get; set; }
+        public string Status { get; set; }
+        public int[] MinHits { get; set; }
+        public int[] HourHits { get; set; }
+        public int[] DayHits { get; set; }
+        public int[] WeekHits { get; set; }
+
     }
 
     public class AppServer
