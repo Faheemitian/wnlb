@@ -17,20 +17,18 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
     $(document).ready(function () {
-        setInterval(function () { getStats(); }, 10000);
+        setInterval(function () { getStats(); }, 5000);
     });
 
     function getStats() {
         var feedback = $.ajax({
             type: "Get",
-            url: "@Url.Action("GetStats", "Home")",
-            dataType: "json",
-            async: false
+            url: "@Url.Action("Stats", "Server")",
+            dataType: "json"
         }).success(function (stats) {
             $.each(stats, function (index, server) {
                 setServerStatus(server.Name, server.Status);
                 setServerActivity(server.Name, server.HitsPerMin);
-                console.log(server.Name);
             });
         });
     }
@@ -38,7 +36,37 @@
     function setServerActivity(name, lastMinHits) {
         var obj = $("#" + name + "-activity");
         if (obj.length > 0) {
-            obj.text(lastMinHits);
+            var hits = [];
+            var hitsLength = lastMinHits.length;
+            var totalHits = 10;
+            if (hitsLength < totalHits) {
+                for (var i = 0; i < totalHits - hitsLength; i++) {
+                    hits[i] = 0;
+                }
+                for (var i = 0; i < hitsLength; i++) {
+                    hits[i + hitsLength] = lastMinHits[i];
+                }
+            } else if (hitsLength > totalHits) {
+                for (var i = hitsLength - totalHits, j = 0; i < hitsLength; i++, j++) {
+                    hits[j] = lastMinHits[i];
+                }
+            } else {
+                for (var i = 0; i < hitsLength; i++) {
+                    hits[i] = lastMinHits[i];
+                }
+            }
+
+            var max = 0;
+            for (var i = 0; i < hits.length; i++) {
+                if (hits[i] > max) {
+                    max = hits[i];
+                }
+            }
+
+            for (var i = 0; i < hits.length; i++) {
+                $("#" + name + "-bar-" + i).css("height", "" + ((hits[i] / max) * 100) + "%");
+                $("#" + name + "-bar-" + i).attr("title", hits[i] + " Request(s)");
+            }
         }
     }
 

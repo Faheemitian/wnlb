@@ -138,6 +138,31 @@ namespace WNLB.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public ActionResult Stats()
+        {
+            List<ServerStats> stats = new List<ServerStats>();
+            foreach (var appServer in NLBService.ServerRegister.Servers)
+            {
+                ServerStats stat = new ServerStats();
+                stat.Name = appServer.Name;
+                stat.Status = appServer.Status.ToString();
+
+                List<int> hits = appServer.HitCounter.LastMinHits;
+                TimeSpan span = DateTime.Now - appServer.HitCounter.LastRecordingTime;
+                int diffs = (int)span.TotalSeconds / 5;
+                for (int i = 0; i < diffs && i < 10; i++)
+                {
+                    hits.Add(0);
+                }
+
+                stat.HitsPerMin = hits.ToArray();
+                stats.Add(stat);
+            }
+
+            return Json(stats.ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

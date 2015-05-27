@@ -15,3 +15,35 @@ select,
 textarea {
     max-width: 280px;
 }
+
+td.chart {
+  padding: 5px 10px 5px 0!important;
+  vertical-align: bottom;
+  table-layout: fixed;
+  width: 20px;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+div.b_chart {
+  display: table;
+  table-layout: fixed;
+  height: 26px;
+  width: 50px;
+  overflow: hidden;
+  border-spacing: 1px;
+  border-collapse: separate;
+}
+
+div.b_chart_col {
+  position: relative;
+  display: table-cell;
+  vertical-align: bottom;
+  height: 26px;
+  border-bottom: 2px solid #55b2da;
+}
+
+div.b_chart_col .bar {
+  display: block;
+  background-color: #55b2da;
+}
