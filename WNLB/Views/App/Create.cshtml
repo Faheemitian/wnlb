@@ -7,7 +7,7 @@
 }
 
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal", id = "server-form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AppType, new { @class = "control-label col-sm-3" })
             <div class="col-sm-9">
-                @Html.EnumDropDownListFor(model => model.AppType, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(model => model.AppType, new { @class = "form-control app-type", onchange = "javascript: checkAppType();" })
                 @Html.ValidationMessageFor(model => model.AppType)
             </div>
         </div>
@@ -42,7 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RoutingAlgorithm, new { @class = "control-label col-sm-3" })
             <div class="col-sm-9">
-                @Html.EnumDropDownListFor(model => model.RoutingAlgorithm, new { @class = "form-control", onchange = "javascript:routingChanged(this)" })
+                @Html.EnumDropDownListFor(model => model.RoutingAlgorithm, new { @class = "form-control routing-algo", onchange = "javascript:routingChanged(this); checkAppType();" })
                 @Html.ValidationMessageFor(model => model.RoutingAlgorithm)
             </div>
         </div>
@@ -115,6 +115,23 @@
             } else {
                 $(".wighted-inputs").hide();
                 $(".distribute-check").prop("checked", "true");
+            }
+        }
+
+        function checkAppType() {
+            var appType = $(".app-type")[0].selectedIndex;
+            var routing = $(".routing-algo")[0].selectedIndex;
+
+            if (appType == 1) {
+                if (routing == 0 || routing == 1) {
+                    var validator = $("#server-form").validate();
+                    validator.showErrors({ RoutingAlgorithm: "Warn: IP-hash or Cookie-based algorithms are recommended for Dynamic Applications" })                    
+                }
+            } else if (appType == 0) {
+                if (routing == 2 || routing == 3) {
+                    var validator = $("#server-form").validate();
+                    validator.showErrors({ RoutingAlgorithm: "Warn: Round-robin or weighted algorithms are recommended for Static Applications" })
+                }
             }
         }
     </script>

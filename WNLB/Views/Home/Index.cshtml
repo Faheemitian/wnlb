@@ -16,12 +16,16 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
+    var statsFailed = 1;
+    var refreshIntervalId;
+
     $(document).ready(function () {
-        setInterval(function () { getStats(); }, 5000);
+        refreshIntervalId = setInterval(function () { getStats(); }, 5000);
     });
 
+    
     function getStats() {
-        var feedback = $.ajax({
+        $.ajax({
             type: "Get",
             url: "@Url.Action("Stats", "Server")",
             dataType: "json"
@@ -30,6 +34,11 @@
                 setServerStatus(server.Name, server.Status);
                 setServerActivity(server.Name, server.HitsPerMin);
             });
+        }).fail(function () {
+            statsFailed++;
+            if (statsFailed > 5) {
+                clearInterval(refreshIntervalId);
+            }
         });
     }
 
@@ -63,9 +72,14 @@
                 }
             }
 
-            for (var i = 0; i < hits.length; i++) {
-                $("#" + name + "-bar-" + i).css("height", "" + ((hits[i] / max) * 100) + "%");
-                $("#" + name + "-bar-" + i).attr("title", hits[i] + " Request(s)");
+            for (var i = 1, j = 0; i <= hits.length; i++, j++) {
+                if (max > 0) {
+                    $("#" + name + "-bar-" + i).css("height", "" + ((hits[j] / max) * 100) + "%");
+                    $("#" + name + "-bar-" + i).attr("title", hits[j] + " Request(s)");
+
+                } else {
+                    $("#" + name + "-bar-" + i).css("height", "0%");
+                }
             }
         }
     }

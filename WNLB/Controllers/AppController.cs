@@ -58,6 +58,16 @@ namespace WNLB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AppName,Path,AppType,RoutingAlgorithm,DistributeEvenly,Weights")]Application application, string[] servers)
         {
+            if (NLBService.AppRegister.GetApplicationWithName(application.AppName) != null)
+            {
+                ModelState.AddModelError("AppName", "Another app already registered under this name");
+            }
+
+            if (NLBService.AppRegister.GetApplicationForPath(application.Path) != null)
+            {
+                ModelState.AddModelError("Path", "Another app already registered for this path");
+            }
+
             if (servers != null && servers.Length > 0)
             {
                 application.Servers = new List<Server>();
@@ -171,9 +181,17 @@ namespace WNLB.Controllers
             }
             else
             {
-                if (ModelState.IsValid)
+                if (TryUpdateModel(application, "", new string[] { "AppName", "Path", "AppType", "RoutingAlgorithm", "DistributeEvenly", "Weights" }))
                 {
-                    if (TryUpdateModel(application, "", new string[] { "AppName", "Path", "AppType", "RoutingAlgorithm", "DistributeEvenly", "Weights" }))
+                    if (!application.AppName.Equals(oldAppName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (NLBService.AppRegister.GetApplicationWithName(application.AppName) != null)
+                        {
+                            ModelState.AddModelError("AppName", "Another app already registered under this name");
+                        }
+                    }
+
+                    if (ModelState.IsValid)
                     {
                         try
                         {
@@ -192,7 +210,6 @@ namespace WNLB.Controllers
                         {
                             ModelState.AddModelError("", "Unable to save changes.");
                         }
-
                     }
                 }
             }

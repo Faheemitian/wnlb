@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using WNLB.Misc;
 using WNLB.Models;
@@ -54,6 +55,11 @@ namespace WNLB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Server server)
         {
+            if (NLBService.ServerRegister.GetServerWithName(server.ServerName) != null)
+            {
+                ModelState.AddModelError("ServerName", "Another server already registered under this name");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Servers.Add(server);
@@ -93,6 +99,15 @@ namespace WNLB.Controllers
             if (ModelState.IsValid)
             {
                 Server oldObject = db.Servers.Find(server.ServerId);
+
+                if (!oldObject.ServerName.Equals(server.ServerName, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (NLBService.ServerRegister.GetServerWithName(server.ServerName) != null)
+                    {
+                        ModelState.AddModelError("ServerName", "Another server already registered under this name");
+                    }
+                }
+
                 db.Entry(server).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -136,6 +151,93 @@ namespace WNLB.Controllers
             NLBService.RemoveServer(server.ServerName);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult DetailedStats()
+        {
+            List<ServerStats> stats = new List<ServerStats>();
+            foreach (var appServer in NLBService.ServerRegister.Servers)
+            {
+                if (!appServer.IsConfig) { 
+                    ServerStats stat = new ServerStats();
+                    stat.Name = appServer.Name;
+                    stat.Status = appServer.Status.ToString();
+                    stats.Add(stat);
+                }
+            }
+
+            return View(stats);
+        }
+
+        [HttpGet]
+        public ActionResult LastMinHitsChart(string serverName)
+        {
+            if (serverName != null && serverName.Length > 0)
+            {
+                var server = NLBService.ServerRegister.GetServerWithName(serverName);
+                if (server != null)
+                {
+                    var key = new Chart(width: 350, height: 250, theme: ChartTheme.Vanilla)
+                        .AddSeries(chartType: "line", yValues: server.HitCounter.LastMinHits);
+
+                    return File(key.ToWebImage().GetBytes(), "image/jpeg");
+                }
+            }
+
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult LastHourHitsChart(string serverName)
+        {
+            if (serverName != null && serverName.Length > 0)
+            {
+                var server = NLBService.ServerRegister.GetServerWithName(serverName);
+                if (server != null)
+                {
+                    var key = new Chart(width: 350, height: 250, theme: ChartTheme.Vanilla)
+                        .AddSeries(chartType: "line", yValues: server.HitCounter.LastHourHits);
+
+                    return File(key.ToWebImage().GetBytes(), "image/jpeg");
+                }
+            }
+
+            return null;
+        }
+
+        public ActionResult LastDayHitsChart(string serverName)
+        {
+            if (serverName != null && serverName.Length > 0)
+            {
+                var server = NLBService.ServerRegister.GetServerWithName(serverName);
+                if (server != null)
+                {
+                    var key = new Chart(width: 350, height: 250, theme: ChartTheme.Vanilla)
+                        .AddSeries(chartType: "line", yValues: server.HitCounter.LastDayHits);
+
+                    return File(key.ToWebImage().GetBytes(), "image/jpeg");
+                }
+            }
+
+            return null;
+        }
+
+        public ActionResult LastWeekHitsChart(string serverName)
+        {
+            if (serverName != null && serverName.Length > 0)
+            {
+                var server = NLBService.ServerRegister.GetServerWithName(serverName);
+                if (server != null)
+                {
+                    var key = new Chart(width: 350, height: 250, theme: ChartTheme.Vanilla)
+                        .AddSeries(chartType: "line", yValues: server.HitCounter.LastWeekHits);
+
+                    return File(key.ToWebImage().GetBytes(), "image/jpeg");
+                }
+            }
+
+            return null;
         }
 
         [HttpGet]

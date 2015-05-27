@@ -8,7 +8,7 @@ namespace NLBLib.Servers
     public class LocalAppServer : AppServer
     {
         public LocalAppServer(string serverName)
-            : base("WNLB_Console", "localhost", 0)
+            : base("WNLB_Console", "localhost", 0, true)
         {
         }        
     }
