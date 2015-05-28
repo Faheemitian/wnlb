@@ -96,19 +96,20 @@ namespace WNLB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Server server)
         {
+            Server oldObject = db.Servers.Find(server.ServerId);
+
+            if (!oldObject.ServerName.Equals(server.ServerName, StringComparison.OrdinalIgnoreCase))
+            {
+                if (NLBService.ServerRegister.GetServerWithName(server.ServerName) != null)
+                {
+                    ModelState.AddModelError("ServerName", "Another server already registered under this name");
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                Server oldObject = db.Servers.Find(server.ServerId);
-
-                if (!oldObject.ServerName.Equals(server.ServerName, StringComparison.OrdinalIgnoreCase))
-                {
-                    if (NLBService.ServerRegister.GetServerWithName(server.ServerName) != null)
-                    {
-                        ModelState.AddModelError("ServerName", "Another server already registered under this name");
-                    }
-                }
-
-                db.Entry(server).State = EntityState.Modified;
+                //db.Entry(server).State = EntityState.Modified;
+                db.Entry(oldObject).CurrentValues.SetValues(server);
                 db.SaveChanges();
 
                 //
@@ -118,6 +119,7 @@ namespace WNLB.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
+
             return View(server);
         }
 
