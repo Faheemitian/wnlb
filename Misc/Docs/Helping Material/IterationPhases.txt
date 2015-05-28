@@ -1,0 +1,5 @@
+Iteration 1 & Iteration 2
+You are required to send software application code, database, and any other
+important file for iteration phases
+For this purpose compress all files (zip or rar) and email
+to your project supervisor

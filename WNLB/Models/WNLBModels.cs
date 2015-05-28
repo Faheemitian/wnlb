@@ -43,7 +43,6 @@ namespace WNLB.Models
         public string ServerHost { get; set; }
 
         [Required]
-        [Range(1025, int.MaxValue, ErrorMessage="Port number must be greater than 1024")]
         public int Port { get; set; }
 
         [NotMapped]
