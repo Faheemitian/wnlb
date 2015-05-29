@@ -13,57 +13,49 @@
                     </div>
                 </div>
             </div>
-
             @if (Model.Count() > 0)
             {
             <!-- Table -->
             <table class="table">
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => model.ServerName)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Status)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ServerName)
+                        @Html.DisplayNameFor(model => model.Uptime)
                     </th>
+                    <th style="width: 100px">
+                        @Html.DisplayNameFor(model => model.Hits)
+                    </th>
+                    <th>
+                        Activity
+                    </th>           
                     <th>
                         @Html.DisplayNameFor(model => model.ServerHost)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Port)
-                    </th>
-                    <th>
-                        Activity
-                    </th>
+                    </th>                    
                     <th></th>
                 </tr>
 
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td id="@item.ServerName-status">
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ServerName)
                         </td>
-                        <td>
-                            @if (item.ServerName.Equals("LocalConfigSrv"))
-                            {
-                                <span>@Request.Url.Host</span>
-                            }
-                            else { 
-                                @Html.DisplayFor(modelItem => item.ServerHost)
-                            }
+                        <td id="@item.ServerName-status">
+                            @Html.DisplayFor(modelItem => item.Status)
                         </td>
-                        <td>
-                            @if (item.ServerName.Equals("LocalConfigSrv"))
-                            {
-                                <span>@Request.Url.Port</span>
-                            }
-                            else
-                            {
-                                @Html.DisplayFor(modelItem => item.Port)
-                            }
+                        <td id="@item.ServerName-uptime">
+                           @Html.DisplayFor(modelItem => item.Uptime)
+                        </td>
+                        <td id="@item.ServerName-hits">
+                            @Html.DisplayFor(modelItem => item.Hits)
                         </td>
                         <td id="@item.ServerName-activity" class="chart">
                             <div class="b_chart">
@@ -98,7 +90,27 @@
                                     <span id="@item.ServerName-bar-10" class="bar"></span>
                                 </div>
                             </div>
+                        </td>                        
+                        <td>
+                            @if (item.ServerName.Equals("LocalConfigSrv"))
+                            {
+                                <span>@Request.Url.Host</span>
+                            }
+                            else { 
+                                @Html.DisplayFor(modelItem => item.ServerHost)
+                            }
                         </td>
+                        <td>
+                            @if (item.ServerName.Equals("LocalConfigSrv"))
+                            {
+                                <span>@Request.Url.Port</span>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.Port)
+                            }
+                        </td>
+                        
                         
                         @if (!item.ServerName.Equals("LocalConfigSrv"))
                         { 

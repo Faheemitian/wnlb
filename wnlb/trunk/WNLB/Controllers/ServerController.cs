@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -251,6 +252,15 @@ namespace WNLB.Controllers
                 ServerStats stat = new ServerStats();
                 stat.Name = appServer.Name;
                 stat.Status = appServer.Status.ToString();
+                if (appServer.AvailableSince != DateTime.MinValue)
+                {
+                    stat.Uptime = TimeFormatter.Format(DateTime.Now - appServer.AvailableSince);
+                }
+                else
+                {
+                    stat.Uptime = "0";
+                }
+                stat.TotalHits = String.Format("{0:n0}", appServer.HitCounter.TotalHits);
 
                 List<int> hits = appServer.HitCounter.LastMinHits;
                 TimeSpan span = DateTime.Now - appServer.HitCounter.LastRecordingTime;

@@ -50,7 +50,9 @@ namespace WNLB.Misc
             List<NLBLib.Servers.AppServer> appServers = new List<NLBLib.Servers.AppServer>();
             foreach (var server in modelApp.Servers)
             {
-                appServers.Add(ServerRegister.GetServerWithName(server.ServerName));
+                var appServer = ServerRegister.GetServerWithName(server.ServerName);
+                appServer.HitCounter.ResetTotalHits();
+                appServers.Add(appServer);
             }
 
             //

@@ -217,6 +217,7 @@
     <Compile Include="Misc\InitSecurityDb.cs" />
     <Compile Include="Misc\INLBService.cs" />
     <Compile Include="Misc\NLBService.cs" />
+    <Compile Include="Misc\TimeFormatter.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Misc\EnumToStringConverter.cs" />
     <Compile Include="Models\WNLBModels.cs" />

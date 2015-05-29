@@ -10,6 +10,7 @@ namespace NLBLib.Misc
     {
         readonly object _counterLock = new object();
         DateTime _lastRecordingTime = DateTime.Now;
+        long _totalHits;
         HitCompCounter _lastMinCounter = HitCompCounter.WithSecs(5, 50);
         HitCompCounter _lastHourCounter = HitCompCounter.WithMins(1, 60);
         HitCompCounter _lastDayCounter = HitCompCounter.WithHours(0.5f, 48);
@@ -55,10 +56,19 @@ namespace NLBLib.Misc
             }
         }
 
+        public long TotalHits
+        {
+            get
+            {
+                return _totalHits;
+            }
+        }
+
         internal void RecordHit()
         {
             lock (_counterLock)
             {
+                _totalHits++;
                 _lastMinCounter.RecordHit();
                 _lastHourCounter.RecordHit();
                 _lastDayCounter.RecordHit();
@@ -76,6 +86,14 @@ namespace NLBLib.Misc
                 _lastDayCounter.CalculateHits();
                 _lastWeekCounter.CalculateHits();
                 _lastRecordingTime = DateTime.Now;
+            }
+        }
+
+        public void ResetTotalHits()
+        {
+            lock (_counterLock)
+            {
+                _totalHits = 0;
             }
         }
     }
