@@ -99,7 +99,8 @@ namespace NLBLib.Routers
                 // If something else is wrong, just forward it
                 //
                 Debug.Write("Failed to process request: " + ex.Message);
-                throw new HttpException(500, "Server Error");
+                HttpErrorResponse.Send(requestContext, 503, "No Backend Server");
+                return;
             }
 
             response.Headers.Add("WNLB-Server", server.Name);

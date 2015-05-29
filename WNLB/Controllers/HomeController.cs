@@ -32,6 +32,16 @@ namespace WNLB.Controllers
                 if(serviceServer != null)
                 {
                     dbServer.Status = serviceServer.Status.ToString();
+                    if (serviceServer.AvailableSince != DateTime.MinValue)
+                    {
+                        dbServer.Uptime = TimeFormatter.Format(DateTime.Now - serviceServer.AvailableSince);
+                    }
+                    else
+                    {
+                        dbServer.Uptime = "0";
+                    }
+
+                    dbServer.Hits = String.Format("{0:n0}", serviceServer.HitCounter.TotalHits);
                 }
             }
 

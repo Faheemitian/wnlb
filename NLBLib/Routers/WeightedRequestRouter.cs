@@ -34,8 +34,11 @@ namespace NLBLib.Routers
 
         override public void RouteRequest(HttpContext requestContext)
         {
-            var server = GetNextServer(requestContext);            
-            ProcessRequest(requestContext, server);
+            var server = GetNextServer(requestContext);
+            if (server != null)
+            {
+                ProcessRequest(requestContext, server);
+            }
         }
 
 
@@ -79,7 +82,8 @@ namespace NLBLib.Routers
             // did loop return a bad server after exhaustion?
             if (nextServer.IsDown)
             {
-                throw new HttpException(503, "No backend server(s) available");
+                HttpErrorResponse.Send(requestContext, 503, "No backend server available");
+                return null;
             }
 
             return nextServer;

@@ -38,11 +38,12 @@ namespace WNLB.Models
         public string ServerName { get; set; }
 
         [Required]
-        [Display(Name = "Hostname (FQDN)")]
+        [Display(Name = "Hostname / IP")]
         [MaxLength(1024, ErrorMessage = "Hostname can't be longer than 1024 chars.")]
         public string ServerHost { get; set; }
 
         [Required]
+        [Range(1, 65536, ErrorMessage = "Port is invalid")]
         public int Port { get; set; }
 
         [NotMapped]
@@ -50,6 +51,16 @@ namespace WNLB.Models
         [Display(Name="Status")]
         [UIHint("Status")]
         public string Status { get; set; }
+
+        [NotMapped]
+        [ScaffoldColumn(false)]
+        [Display(Name = "Uptime")]
+        public string Uptime { get; set; }
+
+        [NotMapped]
+        [ScaffoldColumn(false)]
+        [Display(Name = "Hits")]
+        public string Hits { get; set; }
 
         public virtual ICollection<Application> Applications { get; set; }
 
@@ -111,6 +122,8 @@ namespace WNLB.Models
         public string Name { get; set; }
         public string Status { get; set; }
         public int[] HitsPerMin { get; set; }
+        public string Uptime { get; set; }
+        public string TotalHits { get; set; }
     }
 
     public class AllServerStats

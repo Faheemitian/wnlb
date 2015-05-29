@@ -1,4 +1,5 @@
 ﻿using NLBLib.Applications;
+using NLBLib.Misc;
 using NLBLib.Routers;
 using NLBLib.Servers;
 using System;
@@ -53,7 +54,8 @@ namespace NLBLib
             if (app == null)
             {
                 Trace.WriteLine(String.Format("Invalid requeset. No application registered for path {0}", request.Path));
-                throw new HttpException(404, "Path not available");
+                HttpErrorResponse.Send(context, 404, "Not Found");
+                return;
             }
 
             app.RequestRouter.RouteRequest(context);

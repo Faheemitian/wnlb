@@ -1,4 +1,5 @@
-﻿using NLBLib.Servers;
+﻿using NLBLib.Misc;
+using NLBLib.Servers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +69,8 @@ namespace NLBLib.Routers
                 // did loop return a bad server after exhaustion?
                 if (nextServer.IsDown)
                 {
-                    throw new HttpException(503, "No backend server available");
+                    HttpErrorResponse.Send(requestContext, 500, "No backend server available");
+                    return null;
                 }
 
                 //
@@ -87,7 +89,10 @@ namespace NLBLib.Routers
         public override void RouteRequest(System.Web.HttpContext requestContext)
         {
             var server = GetNextServer(requestContext);
-            ProcessRequest(requestContext, server);
+            if (server != null)
+            {
+                ProcessRequest(requestContext, server);
+            }
         }
     }
 }

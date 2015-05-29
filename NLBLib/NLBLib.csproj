@@ -58,6 +58,7 @@
     <Compile Include="Misc\ConsistentHash.cs" />
     <Compile Include="Misc\HitCompCounter.cs" />
     <Compile Include="Misc\HitCounter.cs" />
+    <Compile Include="Misc\HttpErrorResponse.cs" />
     <Compile Include="Misc\HttpRequestProcesser.cs" />
     <Compile Include="Misc\MurmurHash2UInt32Hack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

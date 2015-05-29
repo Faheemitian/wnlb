@@ -31,7 +31,7 @@
             dataType: "json"
         }).success(function (stats) {
             $.each(stats, function (index, server) {
-                setServerStatus(server.Name, server.Status);
+                setServerStats(server.Name, server.Status, server.Uptime, server.TotalHits);
                 setServerActivity(server.Name, server.HitsPerMin);
             });
         }).fail(function () {
@@ -84,7 +84,17 @@
         }
     }
 
-    function setServerStatus(name, status) {
+    function setServerStats(name, status, uptime, hits) {
+        var uptimeCtrl = $("#" + name + "-uptime");
+        if (uptimeCtrl.length > 0) {
+            uptimeCtrl.text(uptime);
+        }
+
+        var hitsCtrl = $("#" + name + "-hits");
+        if (hitsCtrl.length > 0) {
+            hitsCtrl.text(hits);
+
+        }
         var obj = $("#" + name + "-status");
         if (obj.length > 0) {
             var img = obj.children("img:first");
