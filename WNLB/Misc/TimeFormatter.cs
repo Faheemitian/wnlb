@@ -18,7 +18,7 @@ namespace WNLB.Misc
                 sb.Append("d ");
             }
 
-            if ((int)ts.Hours > 0)
+            if ((int)ts.Hours > 0 || (int)ts.TotalDays > 0)
             {
                 sb.Append(ts.Hours.ToString("00"));
                 sb.Append(":");
