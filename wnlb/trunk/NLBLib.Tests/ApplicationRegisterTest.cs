@@ -10,8 +10,8 @@ namespace NLBLib.Tests
         [TestMethod]
         public void GetAppByPathTest()
         {
-            Application app1 = new StaticApplication("App1", "/", null);
-            Application app2 = new StaticApplication("App2", "/App2", null);
+            Application app1 = new BasicApplication("App1", "/", null);
+            Application app2 = new BasicApplication("App2", "/App2", null);
 
             ApplicationRegister register = new ApplicationRegister();
             register.AddAppliction(app1);

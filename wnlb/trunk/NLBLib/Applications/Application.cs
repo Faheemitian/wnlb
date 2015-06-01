@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace NLBLib.Applications
 {
     /// <summary>
-    /// Application meta-data interface for <see cref="StaticApplication"/> and <see cref="DynamicApplication"/> classes.
+    /// Application meta-data interface for <see cref="BasicApplication"/> and <see cref="DynamicApplication"/> classes.
     /// </summary>
     public interface Application
     {

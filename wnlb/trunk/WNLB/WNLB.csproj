@@ -280,6 +280,7 @@
     <Content Include="Views\Home\_Apps.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Status.cshtml" />
     <Content Include="Views\Server\DetailedStats.cshtml" />
+    <Content Include="Console_ClassDiagram.cd" />
     <None Include="Properties\PublishProfiles\PublishToPath.pubxml" />
     <None Include="_configResources\Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="_configResources\Scripts\jquery-1.10.2.js" />

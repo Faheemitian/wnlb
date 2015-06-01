@@ -49,7 +49,7 @@
     <Compile Include="Applications\Application.cs" />
     <Compile Include="Applications\ApplicationRegister.cs" />
     <Compile Include="Applications\ConfigApplication.cs" />
-    <Compile Include="Applications\StaticApplication.cs" />
+    <Compile Include="Applications\BasicApplication.cs" />
     <Compile Include="HealthEvents\EventManager.cs" />
     <Compile Include="HealthEvents\InfoEvent.cs" />
     <Compile Include="HealthEvents\ErrorEvent.cs" />
@@ -81,6 +81,7 @@
     <Content Include="HealthEvents\ConfigureSimpleMailWebEventProvider.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LBM_ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

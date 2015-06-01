@@ -6,13 +6,13 @@ using System.Web;
 
 namespace NLBLib.Applications
 {
-    public class StaticApplication : Application
+    public class BasicApplication : Application
     {
         private String _appName;
         private String _appPath;
         private RequestRouter _requestRouter;
 
-        public StaticApplication(String appName, String appPath, RequestRouter requestRouter)
+        public BasicApplication(String appName, String appPath, RequestRouter requestRouter)
         {
             _appName = appName;
             _appPath = appPath;

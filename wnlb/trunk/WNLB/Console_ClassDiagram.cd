@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WNLB.BundleConfig">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\BundleConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.FilterConfig">
+    <Position X="4.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.MvcApplication">
+    <Position X="2" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.RouteConfig">
+    <Position X="2.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.App_Start.UnityConfig">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\UnityConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.App_Start.UnityWebActivator">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\UnityMvcActivator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Controllers.AccountController">
+    <Position X="10" Y="5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="WNLB.Controllers.AccountController.ManageMessageId" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\AccountController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Class Name="WNLB.Controllers.AccountController.ExternalLoginResult" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\AccountController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAABAREAEgAAAAABACAAAAARAAQAIAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Controllers.AppController">
+    <Position X="7.25" Y="7.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAACAAABAAAAAAAEAAEACEAEAAACAAAA=</HashCode>
+      <FileName>Controllers\AppController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Controllers.HomeController">
+    <Position X="7.25" Y="5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAEAAAAAAAAAAAAAAAAAEAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Controllers.ServerController">
+    <Position X="10" Y="7" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABAAAAQAAGARAACAAAAAAEAAAAEAAEACEAEEAAAAAQA=</HashCode>
+      <FileName>Controllers\ServerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Misc.NLBService">
+    <Position X="12.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAQAAAEAAAAABAAAAAIAAAAAAAAAgCIAAA=</HashCode>
+      <FileName>Misc\NLBService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WNLB.Models.AllServerStats">
+    <Position X="4.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAEAAABAAAAABAAAAQAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Models\WNLBModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Models.AppDbContext">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAQAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Models\AccountModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Models.Application" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAABAAAACAAAIAAAAAAABAAAAAAAAAAFAAAASAAAA=</HashCode>
+      <FileName>Models\WNLBModels.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WNLB.Models.AppServer">
+    <Position X="2.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEACAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\WNLBModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Models.LoginModel">
+    <Position X="4.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAgAAA=</HashCode>
+      <FileName>Models\AccountModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Models.Server">
+    <Position X="2.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEABAAAACAAAAEBABACAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Models\WNLBModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Models.ServerStats">
+    <Position X="0.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAIAAAQgAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Models\WNLBModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Models.UserProfile">
+    <Position X="4.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Models\AccountModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Models.WNLBContext">
+    <Position X="2.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Models\WNLBModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Misc.AppDbContextInitializer">
+    <Position X="11.5" Y="1.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="WNLB.Misc.AppDbContextInitializer.SimpleMembershipInitializer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Misc\AppDbContextInitializer.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQACgAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Misc\AppDbContextInitializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.Misc.EnumToStringConverter">
+    <Position X="7" Y="12.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Misc\EnumToStringConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.HtmlHelpers.HtmlDropDownExtensions">
+    <Position X="9.75" Y="11.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AABAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HtmlHelpers\HtmlDropDownExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WNLB.HtmlHelpers.MVCHtmlHelpers">
+    <Position X="9.75" Y="13.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HtmlHelpers\MVCHtmlHelpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="WNLB.Misc.INLBService">
+    <Position X="12.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAQAAAEAAAAABAAAAAIAAAAAAAAAgCIAAA=</HashCode>
+      <FileName>Misc\INLBService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="WNLB.Models.ApplicationType">
+    <Position X="4.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\WNLBModels.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WNLB.Models.RoutingAlgo">
+    <Position X="4.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAQAAAAAAAAAAAAAAAAAAAAAAAAAAABAAgAAAAAAAA=</HashCode>
+      <FileName>Models\WNLBModels.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
