@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="NLBLib.LoadBalancerModule">
+    <Position X="1" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAIAAAIAAAABAACAACAAIA=</HashCode>
+      <FileName>LoadBalancerModule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NLBLib.Applications.ApplicationRegister">
+    <Position X="3.5" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAIAAAACABAAAAAAAQAAAAAAAAAAAAE=</HashCode>
+      <FileName>Applications\ApplicationRegister.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Applications.ConfigApplication" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAABAAAAAQQEAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Applications\ConfigApplication.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NLBLib.Applications.BasicApplication" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAABAAAAAQQEAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Applications\BasicApplication.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NLBLib.Routers.ConfigAppRequestRouter">
+    <Position X="1" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Routers\ConfigAppRequestRouter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Routers.CookieBasedRequestRouter">
+    <Position X="3.5" Y="9.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAQEAABAAAAgAAAAAAAAQAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Routers\CookieBasedRequestRouter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Routers.IPHashRequestRouter">
+    <Position X="2.25" Y="12.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="NLBLib.Routers.IPHashRequestRouter.DelistedServer">
+        <TypeIdentifier>
+          <NewMemberFileName>Routers\IPHashRequestRouter.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAMAAAAAAgAAAAAAQAAAAgCAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Routers\IPHashRequestRouter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Routers.RequestRouter">
+    <Position X="3.75" Y="6" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAGQAAAAAAAAAAEBAAAQAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Routers\RequestRouter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Routers.RoundRobinRequestRouter">
+    <Position X="6.25" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAABAAAAgAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Routers\RoundRobinRequestRouter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Routers.WeightedRequestRouter">
+    <Position X="5" Y="12.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAAAEAABAAAAgAAAAAAAAQAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Routers\WeightedRequestRouter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Servers.AppServer">
+    <Position X="10.75" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IEAAMAAEIAUgAAgAAAAAAAQACAAAiIAAIAEABIAAAAA=</HashCode>
+      <FileName>Servers\AppServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Servers.BasicAppServer">
+    <Position X="9.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servers\BasicAppServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Servers.LocalAppServer">
+    <Position X="11.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servers\LocalAppServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Servers.ServerMintoringThread">
+    <Position X="3.5" Y="3.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAIEAAAAAAYAAQAQAAAQABAAAAAAAAAAQAAAAAIBAAA=</HashCode>
+      <FileName>Servers\ServerMintoringThread.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Servers.ServerRegister">
+    <Position X="6" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAghAAAAAIAAA=</HashCode>
+      <FileName>Servers\ServerRegister.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Misc.ConsistentHash&lt;T&gt;">
+    <Position X="1" Y="6.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gAIEAAAAAAAAAAAAAAAADEAAEAAAIAAAAAACAAAAAAE=</HashCode>
+      <FileName>Misc\ConsistentHash.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Misc.HitCompCounter">
+    <Position X="14.25" Y="8.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAABAAAAIAEAQAAgAAQAAAQAAAAAQAAAAAAAACACgAA=</HashCode>
+      <FileName>Misc\HitCompCounter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Misc.HitCounter">
+    <Position X="14.25" Y="5.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Internal" Collapsed="true" />
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAQAIAgAAAYAhAAAAQAAAgAAAACAAAAAWAACACgAA=</HashCode>
+      <FileName>Misc\HitCounter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Misc.HttpRequestProcessor">
+    <Position X="11.75" Y="10.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAEAAAAAAAAAAAAAAQAAAAAAAAAEAIAA=</HashCode>
+      <FileName>Misc\HttpRequestProcesser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NLBLib.Misc.MurmurHash2UInt32Hack">
+    <Position X="6" Y="6.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="NLBLib.Misc.MurmurHash2UInt32Hack.BytetoUInt32Converter" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Misc\MurmurHash2UInt32Hack.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAgABAAAAAAA=</HashCode>
+      <FileName>Misc\MurmurHash2UInt32Hack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="NLBLib.Applications.Application">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Applications\Application.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="NLBLib.Servers.ServerStatus">
+    <Position X="9.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAACAAAAAAIEAAAAAAA=</HashCode>
+      <FileName>Servers\ServerStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

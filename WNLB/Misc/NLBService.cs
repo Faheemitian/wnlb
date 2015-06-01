@@ -116,7 +116,7 @@ namespace WNLB.Misc
                         break;
                 }
 
-                AppRegister.AddAppliction(new StaticApplication(modelApp.AppName, modelApp.Path, router));
+                AppRegister.AddAppliction(new BasicApplication(modelApp.AppName, modelApp.Path, router));
             }
         }
 
